@@ -12,7 +12,7 @@ public class RedPlayerTracker implements IPlayerTracker {
 	{
 		if(!RedstoneKitMain.modLoaded && Minecraft.getMinecraft().running)
 		{
-			player.addChatMessage(RedstoneKitMain.MODNAME + " v" + RedstoneKitMain.MODVERSION + " loaded.");
+			player.addChatMessage(RedstoneKitMain.MODNAME + " \247cv" + RedstoneKitMain.MODVERSION + "\247f loaded.");
 			RedstoneKitMain.modLoaded = true;
 		}else
 		{
