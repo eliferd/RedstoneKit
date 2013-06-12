@@ -24,11 +24,13 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
 @Mod(modid = RedstoneKitMain.MODID, name = RedstoneKitMain.MODNAME, version = RedstoneKitMain.MODVERSION)
+@NetworkMod(clientSideRequired=true, serverSideRequired=false)
 
 public class RedstoneKitMain {
 
@@ -46,6 +48,11 @@ public class RedstoneKitMain {
 	
     public static int itemsID;
     public static int blocksID;
+    
+    
+    public static Item rafinedRedIngot,
+    				   redstoneIngot,
+    				   redstoneStick;
     
 	@PreInit
 	public void preInit(FMLPreInitializationEvent event)
@@ -76,6 +83,7 @@ public class RedstoneKitMain {
 	@Init
 	public void init(FMLInitializationEvent event)
 	{
+		
 		GameRegistry.registerPlayerTracker(new RedPlayerTracker());
 	}
 	
