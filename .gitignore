@@ -18,16 +18,15 @@
 /src/minecraft/paulscode/*
 /src/minecraft/*.cfg
 /src/minecraft/fmlversion.properties
-/src/minecraft/forge_logo.png
+/src/minecraft/*.png
 /src/minecraft/Start.java
 /src/minecraft/mcpmod.info
-/src/minecraft/gfx/*
-/src/minecraft/lang/*
-/src/minecraft/Thumbs.db
-/src/minecraft/mcp.png
+/src/minecraft/redstonekit/*
+/src/minecraft/assets/redstonekit/*
 
 *.bat
 *.sh
+*.db
 !build.sh
 LICENSE.txt
 CHANGELOG
