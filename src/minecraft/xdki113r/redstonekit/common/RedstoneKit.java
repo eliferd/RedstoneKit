@@ -1,6 +1,7 @@
 package xdki113r.redstonekit.common;
 
 
+import net.minecraft.item.Item;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -10,7 +11,7 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 
-@Mod(modid = "RedstoneKit", name = "Redstone Kit", version = "2.2")
+@Mod(modid = ModUtils.mod_id, name = ModUtils.mod_name, version = ModUtils.mod_version)
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class RedstoneKit
 {
@@ -20,6 +21,8 @@ public class RedstoneKit
 	
 	@Instance("RedstoneKit")
 	public static RedstoneKit instance;
+	
+	public static Item redstoneSniper, redstoneIngot;
 	
 	@EventHandler
 	public void PreInit(FMLPreInitializationEvent event)
