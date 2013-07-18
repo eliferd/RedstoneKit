@@ -2,6 +2,9 @@ package xdki113r.redstonekit.common;
 
 
 import net.minecraft.item.Item;
+import net.minecraftforge.common.Configuration;
+import xdki113r.redstonekit.client.RedstoneKitPlayerTracker;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -10,6 +13,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 @Mod(modid = ModUtils.mod_id, name = ModUtils.mod_name, version = ModUtils.mod_version)
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
@@ -22,23 +26,46 @@ public class RedstoneKit
 	@Instance("RedstoneKit")
 	public static RedstoneKit instance;
 	
-	public static Item redstoneSniper, redstoneIngot;
+	public static Item redstoneGun, redstoneIngot;
+	
+	public int redstoneGunID, redstoneIngotID;
+	
+	public Configuration config;
+		
+	public static boolean modLoaded;
 	
 	@EventHandler
-	public void PreInit(FMLPreInitializationEvent event)
+	public void preLoad(FMLPreInitializationEvent event)
+	{
+		modLoaded = false;
+		config = new RedstoneKitConfiguration(event);
+		try {
+			config.load();
+			redstoneGunID = config.getItem("Redstone Shotgun Item ID", 12500).getInt();
+			redstoneIngotID = config.getItem("Redstone Ingot Item ID", 12501).getInt();
+		} finally {
+			if(config.hasChanged())
+			{
+				config.save();
+			}
+		}
+	}
+	
+	@EventHandler
+	public void load(FMLInitializationEvent event)
+	{
+		GameRegistry.registerPlayerTracker(new RedstoneKitPlayerTracker());
+	}
+	
+	@EventHandler
+	public void postLoad(FMLPostInitializationEvent event)
 	{
 		
 	}
 	
-	@EventHandler
-	public void Init(FMLInitializationEvent event)
+	public static boolean anotherModLoadedDetectionByID(String modID)
 	{
-		
+		return Loader.isModLoaded(modID);
 	}
 	
-	@EventHandler
-	public void PostInit(FMLPostInitializationEvent event)
-	{
-		
-	}
 }
