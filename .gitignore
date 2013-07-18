@@ -22,8 +22,8 @@
 /src/minecraft/*.lzma
 /src/minecraft/Start.java
 /src/minecraft/mcpmod.info
-/src/minecraft/redstonekit/*
-/src/minecraft/assets/redstonekit/*
+!/src/minecraft/xdki113r/*
+!/src/minecraft/assets/redstonekit/*
 
 *.bat
 *.sh
