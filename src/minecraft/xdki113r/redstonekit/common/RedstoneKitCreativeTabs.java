@@ -4,16 +4,18 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-public class RedstoneKitCreativeTabs extends CreativeTabs {
+public class RedstoneKitCreativeTabs extends CreativeTabs
+{
 
-	public RedstoneKitCreativeTabs(String label) {
+	public RedstoneKitCreativeTabs(String label)
+	{
 		super(label);
 	}
-	
+
 	@Override
 	public ItemStack getIconItemStack()
 	{
-		return (new ItemStack(Item.redstone));
+		return(new ItemStack(Item.redstone));
 	}
 
 }

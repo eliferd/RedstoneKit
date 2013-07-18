@@ -1,9 +1,9 @@
 package xdki113r.redstonekit.common;
 
-public class ModUtils {
-
+public class ModUtils
+{
 	protected static final String mod_id = "RedstoneKit";
 	protected static final String mod_name = "Redstone Kit";
 	public static final String mod_version = "2.2";
-	
+
 }
