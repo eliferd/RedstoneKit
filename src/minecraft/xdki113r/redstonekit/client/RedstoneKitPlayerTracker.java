@@ -35,23 +35,11 @@ public class RedstoneKitPlayerTracker implements IPlayerTracker
 	@Override
 	public void onPlayerChangedDimension(EntityPlayer player)
 	{
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void onPlayerRespawn(EntityPlayer player)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	public void onPlayerMoveCursor(EntityPlayer player)
-	{
-
-	}
-
-	public void onPlayerClickedRespawnButton(EntityPlayer player)
 	{
 
 	}
