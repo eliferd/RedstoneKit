@@ -1,5 +1,6 @@
 package xdki113r.redstonekit.common;
 
+import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.Configuration;
@@ -18,7 +19,6 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 
 @Mod(modid = ModUtils.mod_id, name = ModUtils.mod_name, version = ModUtils.mod_version)
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
-
 public class RedstoneKit
 {
 	@SidedProxy(clientSide = "xdki113r.redstonekit.client.ClientProxy", serverSide = "xdki113r.redstonekit.common.CommonProxy")
@@ -27,7 +27,16 @@ public class RedstoneKit
 	@Instance("RedstoneKit")
 	public static RedstoneKit instance;
 
-	public static Item redstoneGun, redstoneIngot, redstoneBullet;
+	public static Item redstoneGun, redstoneIngot, redstoneRafinedIngot,
+			redstoneBullet, redstoneGrenade, redstoneHelmet,
+			redstoneChestplate, redstoneLeggings, redstoneBoots, redPick,
+			redAxe, redShovel, redHoe, redSword, redstoneStick;
+	// redstoneStick is for project in future
+	// Credits for redstoneDistributor to Jerome15 - Jérôme Labonté
+	public static Block redstoneGlass, redstoneProtection, redstoneMobHead,
+			redstoneFenceIdle, redstoneFenceActive, redstoneMicrowaveIdle,
+			redstoneMicrowaveActive, redstonePoweredBlockIdle,
+			redstonePoweredBlockActive, redstoneDistributor;
 
 	public int redstoneGunID, redstoneIngotID, redstoneBulletID;
 
@@ -68,8 +77,7 @@ public class RedstoneKit
 
 	@EventHandler
 	public void postLoad(FMLPostInitializationEvent event)
-	{
-	}
+	{}
 
 	public static boolean anotherModLoadedDetectionByID(String modID)
 	{
