@@ -23,6 +23,7 @@
 /src/minecraft/Start.java
 /src/minecraft/mcpmod.info
 !/src/minecraft/xdki113r/*
+!/src/minecraft/redstoneKitLogo.png
 !/src/minecraft/assets/redstonekit/*
 
 *.bat
