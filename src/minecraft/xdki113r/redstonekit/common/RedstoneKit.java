@@ -51,6 +51,8 @@ public class RedstoneKit
 									// for output -> input = stone/cobble ->
 									// output = redstone w/ random
 
+	public int redstoneBulletEntityID;
+	
 	public Configuration config;
 
 	public static boolean modLoaded;
@@ -66,6 +68,8 @@ public class RedstoneKit
 		{
 			config.load();
 
+			redstoneBulletEntityID = config.get(Configuration.CATEGORY_GENERAL, "Redstone Bullet Entity ID", 50).getInt();
+			
 			redstoneGunID = config.getItem("Redstone Shotgun Item ID", 12500).getInt();
 			redstoneIngotID = config.getItem("Redstone Ingot Item ID", 12501).getInt();
 			redstoneRafinedIngotID = config.getItem("Redstone Rafined Ingot Item ID", 12502).getInt();
