@@ -8,9 +8,9 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
 public class RedstoneKitConfiguration extends Configuration
 {
-	public RedstoneKitConfiguration(FMLPreInitializationEvent event)
+	public RedstoneKitConfiguration(File file)
 	{
-		super(event.getSuggestedConfigurationFile());
+		super(file);
 	}
 
 	public void forceCheckVersionOrEatMothercard(URL url, File file, String s)

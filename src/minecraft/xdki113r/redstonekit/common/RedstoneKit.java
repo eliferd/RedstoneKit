@@ -16,7 +16,6 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
 
 @Mod(modid = ModUtils.mod_id, name = ModUtils.mod_name, version = ModUtils.mod_version)
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
@@ -52,8 +51,6 @@ public class RedstoneKit
 									// output = redstone w/ random
 
 	public int redstoneBulletEntityID;
-	
-	public Configuration config;
 
 	public static boolean modLoaded;
 
@@ -63,44 +60,44 @@ public class RedstoneKit
 	public void preLoad(FMLPreInitializationEvent event)
 	{
 		modLoaded = false;
-		config = new RedstoneKitConfiguration(event);
+		Configuration cfg = new RedstoneKitConfiguration(event.getSuggestedConfigurationFile());
 		try
 		{
-			config.load();
+			cfg.load();
 
-			redstoneBulletEntityID = config.get(Configuration.CATEGORY_GENERAL, "Redstone Bullet Entity ID", 50).getInt();
+			redstoneBulletEntityID = cfg.get(cfg.CATEGORY_GENERAL, "Redstone Bullet Entity ID", 50).getInt();
 			
-			redstoneGunID = config.getItem("Redstone Shotgun Item ID", 12500).getInt();
-			redstoneIngotID = config.getItem("Redstone Ingot Item ID", 12501).getInt();
-			redstoneRafinedIngotID = config.getItem("Redstone Rafined Ingot Item ID", 12502).getInt();
-			redstoneBulletID = config.getItem("Redstone Bullet Item ID", 12503).getInt();
-			redstoneGrenadeID = config.getItem("Redstone Grenade Item ID", 12504).getInt();
-			redstoneHelmetID = config.getItem("Redstone Helmet Item ID", 12505).getInt();
-			redstoneChestplateID = config.getItem("Redstone Chestplate Item ID", 12506).getInt();
-			redstoneLeggingsID = config.getItem("Redstone Leggings Item ID", 12507).getInt();
-			redstoneBootsID = config.getItem("Redstone Boots Item ID", 12508).getInt();
-			redPickID = config.getItem("Redstone Pickaxe Item ID", 12509).getInt();
-			redAxeID = config.getItem("Redstone Axe Item ID", 12510).getInt();
-			redShovelID = config.getItem("Redstone Shovel Item ID", 12511).getInt();
-			redHoeID = config.getItem("Redstone Hoe Item ID", 12512).getInt();
-			redSwordID = config.getItem("Redstone Sword Item ID", 12513).getInt();
-			redstoneStickID = config.getItem("Redstone Stick Item ID", 12514).getInt();
+			redstoneGunID = cfg.getItem("Redstone Shotgun Item ID", 12500).getInt();
+			redstoneIngotID = cfg.getItem("Redstone Ingot Item ID", 12501).getInt();
+			redstoneRafinedIngotID = cfg.getItem("Redstone Rafined Ingot Item ID", 12502).getInt();
+			redstoneBulletID = cfg.getItem("Redstone Bullet Item ID", 12503).getInt();
+			redstoneGrenadeID = cfg.getItem("Redstone Grenade Item ID", 12504).getInt();
+			redstoneHelmetID = cfg.getItem("Redstone Helmet Item ID", 12505).getInt();
+			redstoneChestplateID = cfg.getItem("Redstone Chestplate Item ID", 12506).getInt();
+			redstoneLeggingsID = cfg.getItem("Redstone Leggings Item ID", 12507).getInt();
+			redstoneBootsID = cfg.getItem("Redstone Boots Item ID", 12508).getInt();
+			redPickID = cfg.getItem("Redstone Pickaxe Item ID", 12509).getInt();
+			redAxeID = cfg.getItem("Redstone Axe Item ID", 12510).getInt();
+			redShovelID = cfg.getItem("Redstone Shovel Item ID", 12511).getInt();
+			redHoeID = cfg.getItem("Redstone Hoe Item ID", 12512).getInt();
+			redSwordID = cfg.getItem("Redstone Sword Item ID", 12513).getInt();
+			redstoneStickID = cfg.getItem("Redstone Stick Item ID", 12514).getInt();
 
-			redstoneGlassID = config.getBlock("Redstone Glass Block ID", 12000).getInt();
-			redstoneProtectionID = config.getBlock("Redstone Protection Block ID", 12001).getInt();
-			redstoneMobHeadID = config.getBlock("Redstone MobHead Block ID", 12002).getInt();
-			redstoneFenceIdleID = config.getBlock("Redstone FenceIdle Block ID", 12003).getInt();
-			redstoneFenceActiveID = config.getBlock("Redstone FenceActive Block ID", 12004).getInt();
-			redstoneMicrowaveIdleID = config.getBlock("Redstone MicrowaveIdle Block ID", 12005).getInt();
-			redstoneMicrowaveActiveID = config.getBlock("Redstone MicrowaveActive Block ID", 12006).getInt();
-			redstonePoweredBlockIdleID = config.getBlock("Redstone PoweredBlockIdle Block ID", 12007).getInt();
-			redstonePoweredBlockActiveID = config.getBlock("Redstone PoweredBlockActive Block ID", 12008).getInt();
-			redstoneDistributorID = config.getBlock("Redstone Distributor Block ID", 12009).getInt();
+			redstoneGlassID = cfg.getBlock("Redstone Glass Block ID", 1200).getInt();
+			redstoneProtectionID = cfg.getBlock("Redstone Protection Block ID", 1201).getInt();
+			redstoneMobHeadID = cfg.getBlock("Redstone MobHead Block ID", 1202).getInt();
+			redstoneFenceIdleID = cfg.getBlock("Redstone FenceIdle Block ID", 1203).getInt();
+			redstoneFenceActiveID = cfg.getBlock("Redstone FenceActive Block ID", 1204).getInt();
+			redstoneMicrowaveIdleID = cfg.getBlock("Redstone MicrowaveIdle Block ID", 1205).getInt();
+			redstoneMicrowaveActiveID = cfg.getBlock("Redstone MicrowaveActive Block ID", 1206).getInt();
+			redstonePoweredBlockIdleID = cfg.getBlock("Redstone PoweredBlockIdle Block ID", 1207).getInt();
+			redstonePoweredBlockActiveID = cfg.getBlock("Redstone PoweredBlockActive Block ID", 1208).getInt();
+			redstoneDistributorID = cfg.getBlock("Redstone Distributor Block ID", 1209).getInt();
 		} finally
 		{
-			if(config.hasChanged())
+			if(cfg.hasChanged())
 			{
-				config.save();
+				cfg.save();
 			}
 		}
 		// TODO All redstoneBlock relative texture must use Vanilla Redstone Block Texture
