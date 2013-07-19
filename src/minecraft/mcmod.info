@@ -4,7 +4,7 @@
   "name": "Redstone Kit",
   "version": "2.2",
   "description": "",
-  "logoFile": "/assets/redstonekit/textures/logo.png",
+  "logoFile": "/redstoneKitLogo.png",
   "url": "",
   "updateUrl": "",
   "authors": ["XDki113r", "robin4002", "elias54"]
