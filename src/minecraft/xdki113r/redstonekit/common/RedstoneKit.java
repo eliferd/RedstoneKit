@@ -33,7 +33,7 @@ public class RedstoneKit
 			redstoneChestplate, redstoneLeggings, redstoneBoots, redPick,
 			redAxe, redShovel, redHoe, redSword, redstoneStick;
 	// redstoneStick is for project in future -> DO NOT USE AS TOOLS' STICKS
-	// Credits for redstoneDistributor to Jerome15 - Jérôme Labonté
+	// Credits for redstoneDistributor to Jerome15
 	public static Block redstoneGlass, redstoneProtection, redstoneMobHead,
 			redstoneFenceIdle, redstoneFenceActive, redstoneMicrowaveIdle,
 			redstoneMicrowaveActive, redstonePoweredBlockIdle,
@@ -138,7 +138,9 @@ public class RedstoneKit
 
 	@EventHandler
 	public void postLoad(FMLPostInitializationEvent event)
-	{}
+	{
+		proxy.addNonMobEntity(EntityRedstoneBull.class, "RedstoneBullet", 500, this, 40, 1, true);
+	}
 
 	public static boolean anotherModLoadedDetectionByID(String modID)
 	{

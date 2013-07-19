@@ -18,7 +18,31 @@ public class ItemRedstoneGun extends Item
 		int i;
 		ItemStack invItemStackInSlot;
 		int invItemID = 0;
-
+		int bulletNorm = RedstoneKit.redstoneBullet.itemID;
+		
+    	for(i = 0; i <= 36; i++)
+    	{
+        	invItemStackInSlot = player.inventory.getStackInSlot(i);
+        	
+        	if(invItemStackInSlot != null)
+        	{
+        		invItemID = invItemStackInSlot.itemID;
+        	}
+        	
+    		if(invItemID == bulletNorm)
+    		{
+    			if(invItemStackInSlot != null)
+    			{
+    				player.inventory.mainInventory[i].stackSize--;
+    				
+    				if(!world.isRemote)
+    		        {
+    		            world.spawnEntityInWorld(new EntityRedstoneBull(world, player));
+    		        }
+    			}
+    		}
+    	}
+		
 		return itemstack;
 	}
 }
