@@ -15,7 +15,7 @@ public class RedstoneKitCreativeTabs extends CreativeTabs
 	@Override
 	public ItemStack getIconItemStack()
 	{
-		return(new ItemStack(Item.redstone));
+		return(new ItemStack(RedstoneKit.redstoneGun));
 	}
 
 }
