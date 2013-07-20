@@ -8,7 +8,7 @@ public class CommonProxy
 {
 	public Minecraft getMinecraftInstance()
 	{
-		return null;
+		return Minecraft.getMinecraft();
 	}
 
 	public Minecraft getClientMinecraft()
