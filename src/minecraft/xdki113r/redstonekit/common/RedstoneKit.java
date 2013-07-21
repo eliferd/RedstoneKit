@@ -101,17 +101,16 @@ public class RedstoneKit
 			}
 		}
 		// TODO All redstoneBlock relative texture must use Vanilla Redstone Block Texture
-		// TODO multiple texture blocks
 		// TODO special Item/Blocks classes
 		redstoneGlass = new Block(redstoneGlassID, Material.glass).setCreativeTab(redTab).setStepSound(Block.soundGlassFootstep).setLightValue(1F).setLightOpacity(0).setHardness(0.3F).setUnlocalizedName("redGlass").func_111022_d("redstonekit:redglass");
 		redstoneProtection = new Block/* RedstoneProtection */(redstoneProtectionID, Material.rock).setCreativeTab(redTab).setStepSound(Block.soundStoneFootstep).setHardness(5F).setUnlocalizedName("redProtection").func_111022_d("redstonekit:redprotection");
 		redstoneMobHead = new Block/* RedstoneMobHead */(redstoneMobHeadID, Material.rock).setCreativeTab(redTab).setStepSound(Block.soundStoneFootstep).setHardness(1F).setUnlocalizedName("redSkull").func_111022_d("redstonekit:redskull");
 		redstoneFenceIdle = new Block/* RedstoneFence */(redstoneFenceIdleID, Material.wood).setCreativeTab(redTab).setStepSound(Block.soundWoodFootstep).setHardness(0.5F).setUnlocalizedName("redFenceIdle").func_111022_d("redstonekit:redfence");
 		redstoneFenceActive = new Block/* RedstoneFence */(redstoneFenceActiveID, Material.wood).setCreativeTab(redTab).setStepSound(Block.soundWoodFootstep).setHardness(0.5F).setLightValue(0.3F).setUnlocalizedName("redFenceActive").func_111022_d("redstonekit:redfence");
-		redstoneMicrowaveIdle = new Block/* RedstoneMicrowave */(redstoneMicrowaveIdleID, Material.rock).setCreativeTab(redTab).setHardness(3.5F).setStepSound(Block.soundStoneFootstep).setUnlocalizedName("redMicrowaveIdle").func_111022_d("redstonekit:redmicrowave");
-		redstoneMicrowaveActive = new Block/* RedstoneMicrowave */(redstoneMicrowaveActiveID, Material.rock).setCreativeTab(redTab).setHardness(3.5F).setStepSound(Block.soundStoneFootstep).setLightValue(0.3F).setUnlocalizedName("redMicrowaveActive").func_111022_d("redstonekit:redmicrowave");
-		redstonePoweredBlockIdle = new Block/* RedstonePoweredBlock */(redstonePoweredBlockIdleID, Material.rock).setCreativeTab(redTab).setHardness(0.5F).setStepSound(Block.soundStoneFootstep).setUnlocalizedName("redPowerBlockIdle").func_111022_d("redstonekit:redpowerblock");
-		redstonePoweredBlockActive = new Block/* RedstonePoweredBlock */(redstonePoweredBlockActiveID, Material.rock).setCreativeTab(redTab).setHardness(0.5F).setStepSound(Block.soundStoneFootstep).setLightValue(0.7167F).setUnlocalizedName("redPowerBlockActive").func_111022_d("redstonekit:redpowerblock");
+		redstoneMicrowaveIdle = new BlockRedstoneMicrowave(redstoneMicrowaveIdleID, Material.rock, false).setCreativeTab(redTab).setHardness(3.5F).setStepSound(Block.soundStoneFootstep).setUnlocalizedName("redMicrowaveIdle").func_111022_d("redstonekit:redmicrowave");
+		redstoneMicrowaveActive = new BlockRedstoneMicrowave(redstoneMicrowaveActiveID, Material.rock, true).setHardness(3.5F).setStepSound(Block.soundStoneFootstep).setLightValue(0.3F).setUnlocalizedName("redMicrowaveActive").func_111022_d("redstonekit:redmicrowave");
+		redstonePoweredBlockIdle = new BlockRedstonePoweredBlock(redstonePoweredBlockIdleID, Material.rock, false).setCreativeTab(redTab).setHardness(0.5F).setStepSound(Block.soundStoneFootstep).setUnlocalizedName("redPowerBlockIdle").func_111022_d("redstonekit:redpowerblock");
+		redstonePoweredBlockActive = new BlockRedstonePoweredBlock(redstonePoweredBlockActiveID, Material.rock, true).setHardness(0.5F).setStepSound(Block.soundStoneFootstep).setLightValue(0.7167F).setUnlocalizedName("redPowerBlockActive").func_111022_d("redstonekit:redpowerblock");
 		redstoneDistributor = new Block/* RedstoneDistributor */(redstoneDistributorID, Material.rock).setCreativeTab(redTab).setHardness(3.5F).setStepSound(Block.soundMetalFootstep).setUnlocalizedName("redDistributor").func_111022_d("redstonekit:reddistributor");
 
 		redstoneIngot = new Item(redstoneIngotID).setCreativeTab(redTab).setUnlocalizedName("redIngot").func_111206_d("redstonekit:redingot");
@@ -134,6 +133,8 @@ public class RedstoneKit
 	@EventHandler
 	public void load(FMLInitializationEvent event)
 	{
+		registerBlocks();
+		
 		GameRegistry.registerPlayerTracker(new RedstoneKitPlayerTracker());
 	}
 
@@ -141,6 +142,15 @@ public class RedstoneKit
 	public void postLoad(FMLPostInitializationEvent event)
 	{
 		proxy.addNonMobEntity(EntityRedstoneBull.class, "RedstoneBullet", 500, this, 40, 1, true);
+	}
+	
+	public void registerBlocks()
+	{
+		GameRegistry.registerBlock(redstoneGlass, "redGlass");
+		GameRegistry.registerBlock(redstoneMicrowaveIdle, "redMicrowaveIdle");
+		GameRegistry.registerBlock(redstoneMicrowaveActive, "redMicrowaveActive");
+		GameRegistry.registerBlock(redstonePoweredBlockIdle, "redPowerBlockIdle");
+		GameRegistry.registerBlock(redstonePoweredBlockActive, "redPowerBlockActive");
 	}
 
 	public static boolean anotherModLoadedDetectionByID(String modID)

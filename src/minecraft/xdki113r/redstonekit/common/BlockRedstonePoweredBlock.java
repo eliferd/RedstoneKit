@@ -10,12 +10,12 @@ import net.minecraft.world.World;
 
 public class BlockRedstonePoweredBlock extends Block
 {
-	private boolean active;
+	private final boolean active;
 	
 	public BlockRedstonePoweredBlock(int par1, Material par2Material, boolean isActive)
 	{
 		super(par1, par2Material);
-		active = isActive;
+		this.active = isActive;
 	}
 	
 	public int idDropped()
@@ -39,9 +39,29 @@ public class BlockRedstonePoweredBlock extends Block
 	
 	public void onNeighborBlockChange(World par1World, int par2, int par3, int par4, int par5)
 	{
-		if(par1World.isBlockIndirectlyGettingPowered(par2, par3, par4) && !active)
+		if(par1World.isRemote)
+			return;
+		if(par1World.isBlockIndirectlyGettingPowered(par2, par3, par4) && !this.active)
 		{
-			
+			par1World.setBlock(par2, par3, par4, RedstoneKit.redstonePoweredBlockActive.blockID, 0, 2);
+		}
+		else if(!par1World.isBlockIndirectlyGettingPowered(par2, par3, par4) && this.active)
+		{
+			par1World.scheduleBlockUpdate(par2, par3, par4, this.blockID, 4);
+		}
+	}
+	
+	public void onBlockAdded(World par1World, int par2, int par3, int par4)
+	{
+		if(par1World.isRemote)
+			return;
+		if(par1World.isBlockIndirectlyGettingPowered(par2, par3, par4) && !this.active)
+		{
+			par1World.setBlock(par2, par3, par4, RedstoneKit.redstonePoweredBlockActive.blockID, 0, 2);
+		}
+		else if(!par1World.isBlockIndirectlyGettingPowered(par2, par3, par4) && this.active)
+		{
+			par1World.scheduleBlockUpdate(par2, par3, par4, this.blockID, 4);
 		}
 	}
 }
