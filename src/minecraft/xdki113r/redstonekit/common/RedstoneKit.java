@@ -3,6 +3,7 @@ package xdki113r.redstonekit.common;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.Configuration;
 import xdki113r.redstonekit.client.RedstoneKitPlayerTracker;
@@ -134,7 +135,6 @@ public class RedstoneKit
 	public void load(FMLInitializationEvent event)
 	{
 		registerBlocks();
-		
 		GameRegistry.registerPlayerTracker(new RedstoneKitPlayerTracker());
 	}
 
@@ -142,6 +142,8 @@ public class RedstoneKit
 	public void postLoad(FMLPostInitializationEvent event)
 	{
 		proxy.addNonMobEntity(EntityRedstoneBull.class, "RedstoneBullet", 500, this, 40, 1, true);
+		proxy.addMobEntity(EntityRedstoneBoss.class, "RedstoneBoss", 501, this, 40, 1, true, 0, 0, 1, 1, 1, EnumCreatureType.monster);
+		proxy.render();
 	}
 	
 	public void registerBlocks()
