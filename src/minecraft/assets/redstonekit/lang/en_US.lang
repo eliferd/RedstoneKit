@@ -3,30 +3,30 @@
 itemGroup.redKitTab=RedStone Kit
 
 #Block
-tile.redGlass.name=Red Glass
-tile.redProtection.name=Red Protection
-tile.redSkull.name= Red Skull
-tile.redFenceIdle.name=
-tile.redFenceActive.name=
-tile.redMicrowaveIdle.name=
-tile.redMicrowaveIdle.name=
-tile.redPowerBlockIdle.name=
-tile.redPowerBlockActive.name=
-tile.redDistributor.name=
+tile.redGlass.name=Redstone Glass
+tile.redProtection.name=Redstone Protection
+tile.redSkull.name=Redstone Skull
+tile.redFenceIdle.name=Redstone Fence
+tile.redFenceActive.name=Do not use TMI
+tile.redMicrowaveIdle.name=Microwave
+tile.redMicrowaveActive.name=Do not use TMI
+tile.redPowerBlockIdle.name=Redstone Powered block
+tile.redPowerBlockActive.name=Do not use TMI
+tile.redDistributor.name=Redstone Distributor
 
 #Item
 item.redstoneIngot.name=Redstone Ingot
-item.redstoneRafinedIngot.name=
-item.redBullet.name=
-item.redGun.name=
-item.redGrenade.name=
-item.redStick.name=
-item.redHelmet.name=
-item.redChestplate.name=
-item.redLeggings.name=
-item.redBoots.name=
-item.redPick.name=
-item.redAxe.name=
-item.redShovel.name=
-item.redHoe.name=
-item.redSword.name=
+item.redstoneRafinedIngot.name=Redstone Refined Ingot
+item.redBullet.name=Redstone Bullet
+item.redGun.name=Redstone Gun
+item.redGrenade.name=Redstone Grenade
+item.redStick.name=Redstone Stick
+item.redHelmet.name=Redstone Helmet
+item.redChestplate.name=Redstone Chestplate
+item.redLeggings.name=Redstone Leggings
+item.redBoots.name=Redstone Boots
+item.redPick.name=Redstone Pickaxe
+item.redAxe.name=Redstone Axe
+item.redShovel.name=Redstone Shovel
+item.redHoe.name=Redstone Hoe
+item.redSword.name=Redstone Sword

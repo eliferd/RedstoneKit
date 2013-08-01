@@ -99,7 +99,7 @@ public class TileEntityMicrowave extends TileEntity implements ISidedInventory
 	
 	public String getInvName()
 	{
-		return this.isInvNameLocalized() ? this.guiDisplayName : "redstonekit:container.microwave";
+		return this.isInvNameLocalized() ? this.guiDisplayName : "Microwave";
 	}
 	
 	public boolean isInvNameLocalized()
