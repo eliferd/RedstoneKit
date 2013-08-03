@@ -58,7 +58,7 @@ public class EntityRedstoneBoss extends EntityMob {
 			EntityPlayer player = Minecraft.getMinecraft().thePlayer;
 			if(startCounter > 0)
 			{
-				player.addChatMessage("Cooldown : " + startCounter);
+				
 			}
 			if(!start && startCounter > 0)
 			{
