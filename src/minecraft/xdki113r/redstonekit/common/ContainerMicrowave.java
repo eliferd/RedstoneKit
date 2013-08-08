@@ -7,7 +7,10 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
+import net.minecraft.inventory.SlotFurnace;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.FurnaceRecipes;
+import net.minecraft.tileentity.TileEntityFurnace;
 
 public class ContainerMicrowave extends Container
 {
@@ -105,6 +108,7 @@ public class ContainerMicrowave extends Container
     /**
      * Called when a player shift-clicks on a slot. You must override this or you will crash when someone does that.
      */
+    @Override
     public ItemStack transferStackInSlot(EntityPlayer par1EntityPlayer, int par2)
     {
         ItemStack itemstack = null;
@@ -126,14 +130,14 @@ public class ContainerMicrowave extends Container
             }
             else if (par2 != 1 && par2 != 0)
             {
-                if (MicrowaveRecipes.smelting().getSmeltingResult(itemstack1) != null)
+                if (FurnaceRecipes.smelting().getSmeltingResult(itemstack1) != null)
                 {
                     if (!this.mergeItemStack(itemstack1, 0, 1, false))
                     {
                         return null;
                     }
                 }
-                else if (TileEntityMicrowave.isItemFuel(itemstack1))
+                else if (TileEntityFurnace.isItemFuel(itemstack1))
                 {
                     if (!this.mergeItemStack(itemstack1, 1, 2, false))
                     {

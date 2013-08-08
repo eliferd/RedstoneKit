@@ -172,7 +172,7 @@ public class BlockRedstoneMicrowave extends BlockContainer
 		
 		if(par6ItemStack.hasDisplayName())
 		{
-			((TileEntityMicrowave)par1World.getBlockTileEntity(par2, par3, par4)).setDisplayName(par6ItemStack.getDisplayName());
+			((TileEntityMicrowave)par1World.getBlockTileEntity(par2, par3, par4)).setGuiDisplayName(par6ItemStack.getDisplayName());
 		}
 	}
 	

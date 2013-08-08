@@ -19,7 +19,10 @@ public class GUIMicrowave extends GuiContainer
         super(new ContainerMicrowave(par1InventoryPlayer, par2TileEntityMicrowave));
         this.microwaveInventory = par2TileEntityMicrowave;
     }
-    
+
+    /**
+     * Draw the foreground layer for the GuiContainer (everything in front of the items)
+     */
     protected void drawGuiContainerForegroundLayer(int par1, int par2)
     {
         String s = this.microwaveInventory.isInvNameLocalized() ? this.microwaveInventory.getInvName() : I18n.func_135053_a(this.microwaveInventory.getInvName());
@@ -27,6 +30,9 @@ public class GUIMicrowave extends GuiContainer
         this.fontRenderer.drawString(I18n.func_135053_a("container.inventory"), 8, this.ySize - 96 + 2, 4210752);
     }
 
+    /**
+     * Draw the background layer for the GuiContainer (everything behind the items)
+     */
     protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3)
     {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
