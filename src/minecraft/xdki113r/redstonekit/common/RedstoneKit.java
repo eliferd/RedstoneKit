@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.entity.monster.EntityPigZombie;
 import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.Item;
@@ -28,6 +29,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.relauncher.ReflectionHelper;
 
 @Mod(modid = ModUtils.mod_id, name = ModUtils.mod_name, version = ModUtils.mod_version)
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
@@ -74,6 +76,8 @@ public class RedstoneKit
 	public static boolean modLoaded;
 
 	public static CreativeTabs redTab = new RedstoneKitCreativeTabs("redKitTab");
+	
+	public static EntityPigZombie pZombieInstance; //for a java reflexion test, see more in preLoad
 
 	@EventHandler
 	public void preLoad(FMLPreInitializationEvent event)
@@ -153,8 +157,16 @@ public class RedstoneKit
 		redShovel = new ItemSpade(redShovelID, RedstoneTool).setCreativeTab(redTab).setUnlocalizedName("redShovel").func_111206_d("redstonekit:RedstoneShovel");
 		redHoe = new ItemHoe(redHoeID, RedstoneTool).setCreativeTab(redTab).setUnlocalizedName("redHoe").func_111206_d("redstonekit:RedstoneHoe");
 		redSword = new ItemSword(redSwordID, RedstoneTool).setCreativeTab(redTab).setUnlocalizedName("redSword").func_111206_d("redstonekit:RedstoneSword");
+		
+		// a test with java reflection (tried to unimmune to fire the zombie pigmen)
+		ReflectionHelper.setPrivateValue(EntityPigZombie.class, pZombieInstance, 56, "angerLevel");
 	}
-
+	
+	public static EntityPigZombie getInstanceOfEntity()
+	{
+		return pZombieInstance;
+	}
+	
 	@EventHandler
 	public void load(FMLInitializationEvent event)
 	{

@@ -69,7 +69,7 @@ public class EntityRedstoneBoss extends EntityMob {
 				start = true;
 				EntityLightningBolt strike = new EntityLightningBolt(worldObj, posX, posY, posZ);
 				strike.boltVertex = 12;
-				worldObj.spawnEntityInWorld(strike);;
+				worldObj.spawnEntityInWorld(strike);
 				
 				phase = 1;
 			}
