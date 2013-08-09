@@ -32,7 +32,7 @@ public class BlockRedstoneMicrowave extends BlockContainer
 	private static boolean keepMicrowaveInventory;
 	
 	@SideOnly(Side.CLIENT)
-	private Icon microwaveIconTop;
+	private Icon microwaveIcon;
 	@SideOnly(Side.CLIENT)
 	private Icon microwaveIconFront;
 	
@@ -93,8 +93,8 @@ public class BlockRedstoneMicrowave extends BlockContainer
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister par1IconRegister)
 	{
-		this.blockIcon = par1IconRegister.registerIcon("redstonekit:microwave_side");
-		this.microwaveIconFront = par1IconRegister.registerIcon(this.active ? "redstonekit:microwave_front_active" : "redstonekit:microwave_front_idle");
+		this.blockIcon = par1IconRegister.registerIcon("redstonekit:MicrowaveSides");
+		this.microwaveIconFront = par1IconRegister.registerIcon(this.active ? "redstonekit:MicrowaveFrontOn" : "redstonekit:MicrowaveFront");
 	}
 	
 	public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5Player, int par6, float par7, float par8, float par9)

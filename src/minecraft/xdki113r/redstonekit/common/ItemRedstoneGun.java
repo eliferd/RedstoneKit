@@ -22,6 +22,9 @@ public class ItemRedstoneGun extends Item
 		
     	for(i = 0; i <= 36; i++)
     	{
+    		if(player.capabilities.isCreativeMode)
+    			break;
+    		
         	invItemStackInSlot = player.inventory.getStackInSlot(i);
         	
         	if(invItemStackInSlot != null)
@@ -33,14 +36,26 @@ public class ItemRedstoneGun extends Item
     		{
     			if(invItemStackInSlot != null)
     			{
-    				player.inventory.mainInventory[i].stackSize--;
+    				player.inventory.consumeInventoryItem(invItemID);
     				
     				if(!world.isRemote)
     		        {
     		            world.spawnEntityInWorld(new EntityRedstoneBull(world, player));
     		        }
+    				
+    				itemstack.damageItem(1, player);
+    				
+    				break;
     			}
     		}
+    	}
+    	
+    	if(player.capabilities.isCreativeMode)
+    	{
+    		if(!world.isRemote)
+	        {
+	            world.spawnEntityInWorld(new EntityRedstoneBull(world, player));
+	        }
     	}
 		
 		return itemstack;

@@ -14,8 +14,11 @@ tile.redPowerBlockIdle.name=Redstone Powered block
 tile.redPowerBlockActive.name=Do not use TMI
 tile.redDistributor.name=Redstone Distributor
 
+#Container
+container.microwave=Microwave
+
 #Item
-item.redstoneIngot.name=Redstone Ingot
+item.redIngot.name=Redstone Ingot
 item.redstoneRafinedIngot.name=Redstone Refined Ingot
 item.redBullet.name=Redstone Bullet
 item.redGun.name=Redstone Gun

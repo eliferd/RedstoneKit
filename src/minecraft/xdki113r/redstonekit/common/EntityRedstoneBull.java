@@ -26,7 +26,7 @@ public class EntityRedstoneBull extends Entity {
     public double accelerationX;
     public double accelerationY;
     public double accelerationZ;
-	private static int bullDamage;
+	private static int bullDamage = 0;
     
 	public EntityRedstoneBull(World par1World) {
 		super(par1World);
@@ -152,7 +152,7 @@ public class EntityRedstoneBull extends Entity {
       
         if (movingobjectposition != null && !worldObj.isRemote && movingobjectposition.entityHit != null)
         {
-        	if(!movingobjectposition.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, shootingEntity), bullDamage));
+        	if(!movingobjectposition.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, shootingEntity), getBullDamage()));
         	setDead();
         }
         posX += motionX;
@@ -241,6 +241,8 @@ public class EntityRedstoneBull extends Entity {
     }
 	public static int getBullDamage()
 	{
+		if(bullDamage == 0)
+			bullDamage = RedstoneKit.getBulletDamage();
 		return bullDamage;
 	}
     public float getShadowSize()
