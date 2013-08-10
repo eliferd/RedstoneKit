@@ -16,7 +16,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.EnumHelper;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.Property;
+import xdki113r.redstonekit.client.RedSoundEvent;
 import xdki113r.redstonekit.client.RedstoneKitPlayerTracker;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
@@ -46,11 +48,10 @@ public class RedstoneKit
 			redstoneChestplate, redstoneLeggings, redstoneBoots, redPick,
 			redAxe, redShovel, redHoe, redSword, redstoneStick;
 	// redstoneStick is for project in future -> DO NOT USE AS TOOLS' STICKS
-	// Credits for redstoneDistributor to Jerome15
 	public static Block redstoneGlass, redstoneProtection, redstoneMobHead,
 			redstoneFenceIdle, redstoneFenceActive, redstoneMicrowaveIdle,
 			redstoneMicrowaveActive, redstonePoweredBlockIdle,
-			redstonePoweredBlockActive, redstoneDistributor;
+			redstonePoweredBlockActive;
 
 	public int redstoneGunID, redstoneIngotID, redstoneRafinedIngotID,
 			redstoneBulletID, redstoneGrenadeID, redstoneHelmetID,
@@ -59,10 +60,7 @@ public class RedstoneKit
 			redstoneStickID, redstoneGlassID, redstoneProtectionID,
 			redstoneMobHeadID, redstoneFenceIdleID, redstoneFenceActiveID,
 			redstoneMicrowaveIdleID, redstoneMicrowaveActiveID,
-			redstonePoweredBlockIdleID, redstonePoweredBlockActiveID,
-			redstoneDistributorID; // Distributor -> 2 slots, 1 for input other
-									// for output -> input = stone/cobble ->
-									// output = redstone w/ random
+			redstonePoweredBlockIdleID, redstonePoweredBlockActiveID;
 	
 	static EnumArmorMaterial RedstoneArmor = EnumHelper.addArmorMaterial("Redstone", 35, new int[]{ 4, 10, 8, 5 }, 30);
 	static EnumToolMaterial RedstoneTool = EnumHelper.addToolMaterial("Redstone", 150, 2634, 13F, 4, 4);
@@ -121,7 +119,6 @@ public class RedstoneKit
 			redstoneMicrowaveActiveID = cfg.getBlock("Redstone MicrowaveActive Block ID", 1206).getInt();
 			redstonePoweredBlockIdleID = cfg.getBlock("Redstone PoweredBlockIdle Block ID", 1207).getInt();
 			redstonePoweredBlockActiveID = cfg.getBlock("Redstone PoweredBlockActive Block ID", 1208).getInt();
-			redstoneDistributorID = cfg.getBlock("Redstone Distributor Block ID", 1209).getInt();
 		} finally
 		{
 			if(cfg.hasChanged())
@@ -129,24 +126,27 @@ public class RedstoneKit
 				cfg.save();
 			}
 		}
-		// TODO special Item/Blocks classes
-		// TODO redstoneProtection rotation relative to block's rotation
+		
+		if(event.getSide().isClient())
+		{
+			MinecraftForge.EVENT_BUS.register(new RedSoundEvent());
+		}
+		
 		redstoneGlass = new BlockRedstoneGlass(redstoneGlassID, Material.glass).setCreativeTab(redTab).setStepSound(Block.soundGlassFootstep).setLightValue(1F).setLightOpacity(0).setHardness(0.3F).setUnlocalizedName("redGlass").func_111022_d("redstonekit:RedstoneGlass");
 		redstoneProtection = new BlockRedstoneProtection(redstoneProtectionID).setCreativeTab(redTab).setStepSound(Block.soundStoneFootstep).setHardness(5F).setUnlocalizedName("redProtection");
 		redstoneMobHead = new Block/* RedstoneMobHead */(redstoneMobHeadID, Material.rock).setCreativeTab(redTab).setStepSound(Block.soundStoneFootstep).setHardness(1F).setUnlocalizedName("redSkull");
-		redstoneFenceIdle = new Block/* RedstoneFence */(redstoneFenceIdleID, Material.wood).setCreativeTab(redTab).setStepSound(Block.soundWoodFootstep).setHardness(0.5F).setUnlocalizedName("redFenceIdle").func_111022_d("redstone_block");
-		redstoneFenceActive = new Block/* RedstoneFence */(redstoneFenceActiveID, Material.wood).setCreativeTab(redTab).setStepSound(Block.soundWoodFootstep).setHardness(0.5F).setLightValue(0.3F).setUnlocalizedName("redFenceActive").func_111022_d("redstone_block");
+		redstoneFenceIdle = new BlockRedstoneFence(redstoneFenceIdleID, false).setCreativeTab(redTab).setStepSound(Block.soundWoodFootstep).setHardness(0.5F).setUnlocalizedName("redFenceIdle").func_111022_d("redstone_block");
+		redstoneFenceActive = new BlockRedstoneFence(redstoneFenceActiveID, true).setStepSound(Block.soundWoodFootstep).setHardness(0.5F).setLightValue(0.2F).setUnlocalizedName("redFenceActive").func_111022_d("redstone_block");
 		redstoneMicrowaveIdle = new BlockRedstoneMicrowave(redstoneMicrowaveIdleID, Material.rock, false).setCreativeTab(redTab).setHardness(3.5F).setStepSound(Block.soundStoneFootstep).setUnlocalizedName("redMicrowaveIdle");
 		redstoneMicrowaveActive = new BlockRedstoneMicrowave(redstoneMicrowaveActiveID, Material.rock, true).setHardness(3.5F).setStepSound(Block.soundStoneFootstep).setLightValue(0.3F).setUnlocalizedName("redMicrowaveActive");
 		redstonePoweredBlockIdle = new BlockRedstonePoweredBlock(redstonePoweredBlockIdleID, Material.rock, false).setCreativeTab(redTab).setHardness(0.5F).setStepSound(Block.soundStoneFootstep).setUnlocalizedName("redPowerBlockIdle").func_111022_d("redstone_block");
 		redstonePoweredBlockActive = new BlockRedstonePoweredBlock(redstonePoweredBlockActiveID, Material.rock, true).setHardness(0.5F).setStepSound(Block.soundStoneFootstep).setLightValue(0.7167F).setUnlocalizedName("redPowerBlockActive").func_111022_d("redstone_block");
-		redstoneDistributor = new Block/* RedstoneDistributor */(redstoneDistributorID, Material.rock).setCreativeTab(redTab).setHardness(3.5F).setStepSound(Block.soundMetalFootstep).setUnlocalizedName("redDistributor");
 
 		redstoneIngot = new Item(redstoneIngotID).setCreativeTab(redTab).setUnlocalizedName("redIngot").func_111206_d("redstonekit:RedstoneIngot");
 		redstoneRafinedIngot = new Item(redstoneRafinedIngotID).setCreativeTab(redTab).setUnlocalizedName("redstoneRafinedIngot").func_111206_d("redstonekit:RafinedRedIngot");
 		redstoneBullet = new Item(redstoneBulletID).setCreativeTab(redTab).setUnlocalizedName("redBullet").func_111206_d("redstonekit:RedGunBullNorm");
 		redstoneGun = new ItemRedstoneGun(redstoneGunID).setCreativeTab(redTab).setMaxStackSize(1).setMaxDamage(127).setUnlocalizedName("redGun").func_111206_d("redstonekit:RedGun").setFull3D();
-		redstoneGrenade = new Item/* RedstoneGrenade */(redstoneGrenadeID).setCreativeTab(redTab).setMaxStackSize(16).setUnlocalizedName("redGrenade").func_111206_d("redstonekit:RedGrenade");
+		redstoneGrenade = new ItemRedstoneGrenade(redstoneGrenadeID).setCreativeTab(redTab).setMaxStackSize(16).setUnlocalizedName("redGrenade").func_111206_d("redstonekit:RedGrenade").setFull3D();//TODO make it work
 		redstoneStick = new Item(redstoneStickID).setCreativeTab(redTab).setUnlocalizedName("redStick").func_111206_d("redstonekit:RedstoneStick");
 		redstoneHelmet = new ItemRedstoneArmor(redstoneHelmetID, RedstoneArmor, 0, 0).setCreativeTab(redTab).setUnlocalizedName("redHelmet").func_111206_d("redstonekit:Helmet");
 		redstoneChestplate = new ItemRedstoneArmor(redstoneChestplateID, RedstoneArmor, 0, 1).setCreativeTab(redTab).setUnlocalizedName("redChestplate").func_111206_d("redstonekit:Chest");
@@ -159,7 +159,7 @@ public class RedstoneKit
 		redSword = new ItemSword(redSwordID, RedstoneTool).setCreativeTab(redTab).setUnlocalizedName("redSword").func_111206_d("redstonekit:RedstoneSword");
 		
 		// a test with java reflection (tried to unimmune to fire the zombie pigmen)
-		ReflectionHelper.setPrivateValue(EntityPigZombie.class, pZombieInstance, 56, "angerLevel");
+		//ReflectionHelper.setPrivateValue(EntityPigZombie.class, pZombieInstance, 56, "angerLevel");
 	}
 	
 	public static EntityPigZombie getInstanceOfEntity()
@@ -184,6 +184,7 @@ public class RedstoneKit
 	{
 		proxy.addNonMobEntity(EntityRedstoneBull.class, "RedstoneBullet", 500, this, 40, 1, true);
 		proxy.addMobEntity(EntityRedstoneBoss.class, "RedstoneBoss", 501, this, 40, 1, true, 0, 0, 1, 1, 1, EnumCreatureType.monster);
+		proxy.addNonMobEntity(EntityRedGrenade.class, "RedstoneGrenade", 502, this, 40, 1, true);
 		proxy.render();
 	}
 	
@@ -195,6 +196,8 @@ public class RedstoneKit
 		GameRegistry.registerBlock(redstonePoweredBlockIdle, "redPowerBlockIdle");
 		GameRegistry.registerBlock(redstonePoweredBlockActive, "redPowerBlockActive");
 		GameRegistry.registerBlock(redstoneProtection, "redProtection");
+		GameRegistry.registerBlock(redstoneFenceIdle, "redFenceIdle");
+		GameRegistry.registerBlock(redstoneFenceActive, "redFenceActive");
 	}
 	
 	public void registerItems()
@@ -208,6 +211,7 @@ public class RedstoneKit
 		GameRegistry.registerItem(redPick, "redPick", "RedstoneKit");
 		GameRegistry.registerItem(redSword, "redSword", "RedstoneKit");
 		GameRegistry.registerItem(redHoe, "redHoe", "RedstoneKit");
+		GameRegistry.registerItem(redstoneGrenade, redstoneGrenade.getUnlocalizedName(), "RedstoneKit");
 	}
 	
 	public void registerCrafts()

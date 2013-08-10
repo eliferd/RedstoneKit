@@ -242,4 +242,13 @@ public class BlockRedstoneMicrowave extends BlockContainer
 	{
 		return RedstoneKit.redstoneMicrowaveIdle.blockID;
 	}
+	
+	@Override
+	public void randomDisplayTick(World world, int x, int y, int z, Random rand)
+	{
+		if(world.getBlockId(x, y, z) == RedstoneKit.redstoneMicrowaveActive.blockID)
+		{
+			world.playSoundEffect((double)x+0.5D, (double)y+0.5D, (double)z+0.5D, "redstonekit:microondes", 1.0F, 1.0F);
+		}
+	}
 }
