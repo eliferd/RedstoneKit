@@ -29,7 +29,6 @@ public class ClientProxy extends CommonProxy
 	{
 		RenderingRegistry.registerEntityRenderingHandler(EntityRedstoneBoss.class, new RenderRedstoneBoss(new ModelRedstoneBoss(), 6F));
 		RenderingRegistry.registerEntityRenderingHandler(EntityRedstoneBull.class, new RenderRedstoneBull());
-		RenderingRegistry.registerEntityRenderingHandler(EntityRedGrenade.class, new RenderRedstoneGrenade(RedstoneKit.redstoneGrenade));
 	}
 
 }

@@ -72,10 +72,11 @@ public class RedstoneKit
 	public String microwaveTileEntityID = "Microwave";
 
 	public static boolean modLoaded;
+	
+	// for the config ? :D by default i turn this to true :) -elias
+	public static boolean grenadeExplode = true;
 
 	public static CreativeTabs redTab = new RedstoneKitCreativeTabs("redKitTab");
-	
-	public static EntityPigZombie pZombieInstance; //for a java reflexion test, see more in preLoad
 
 	@EventHandler
 	public void preLoad(FMLPreInitializationEvent event)
@@ -157,14 +158,6 @@ public class RedstoneKit
 		redShovel = new ItemSpade(redShovelID, RedstoneTool).setCreativeTab(redTab).setUnlocalizedName("redShovel").func_111206_d("redstonekit:RedstoneShovel");
 		redHoe = new ItemHoe(redHoeID, RedstoneTool).setCreativeTab(redTab).setUnlocalizedName("redHoe").func_111206_d("redstonekit:RedstoneHoe");
 		redSword = new ItemSword(redSwordID, RedstoneTool).setCreativeTab(redTab).setUnlocalizedName("redSword").func_111206_d("redstonekit:RedstoneSword");
-		
-		// a test with java reflection (tried to unimmune to fire the zombie pigmen)
-		//ReflectionHelper.setPrivateValue(EntityPigZombie.class, pZombieInstance, 56, "angerLevel");
-	}
-	
-	public static EntityPigZombie getInstanceOfEntity()
-	{
-		return pZombieInstance;
 	}
 	
 	@EventHandler
