@@ -1,8 +1,10 @@
 package xdki113r.redstonekit.common;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
@@ -19,10 +21,10 @@ public class EntityRedGrenade extends EntityItem
     protected int fuse;
     protected boolean exploded;
     protected double initialVelocity;
-    protected static final int FUSE_LENGTH = 50;
-    protected static final double MIN_BOUNCE_SOUND_VELOCITY = 0.1D;
 	
     public ItemStack item;
+    
+    private int health;
     
 	public EntityRedGrenade(World par1World)
     {
@@ -33,6 +35,7 @@ public class EntityRedGrenade extends EntityItem
         setSize(0.25F, 0.25F);
         exploded = false;
         fuse = 50;
+        health = 5;
         yOffset = 0.0F;
         item = new ItemStack(RedstoneKit.redstoneGrenade, 1, 0);
     }
@@ -171,7 +174,6 @@ public class EntityRedGrenade extends EntityItem
                 worldObj.spawnParticle("explode", posX, posY, posZ, worldObj.rand.nextDouble() - 0.5D, worldObj.rand.nextDouble() - 0.5D, worldObj.rand.nextDouble() - 0.5D);
                 worldObj.spawnParticle("smoke", posX, posY, posZ, worldObj.rand.nextDouble() - 0.5D, worldObj.rand.nextDouble() - 0.5D, worldObj.rand.nextDouble() - 0.5D);
             }
-
             isDead = true;
         }
     }
@@ -183,7 +185,26 @@ public class EntityRedGrenade extends EntityItem
 
     public boolean attackEntityFrom(DamageSource damagesource, float f)
     {
-        return false;
+        if (this.isEntityInvulnerable())
+        {
+            return false;
+        }
+        else if (this.getEntityItem() != null && this.getEntityItem().itemID == Item.netherStar.itemID && damagesource.isExplosion())
+        {
+            return false;
+        }
+        else
+        {
+            this.setBeenAttacked();
+            this.health = (int)((float)this.health - f);
+
+            if (this.health <= 0)
+            {
+                this.setDead();
+            }
+
+            return false;
+        }
     }
     
     public void yoloExplosion()
