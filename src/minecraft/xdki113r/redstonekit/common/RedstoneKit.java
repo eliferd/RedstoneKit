@@ -73,7 +73,7 @@ public class RedstoneKit
 
 	public static boolean modLoaded;
 	
-	// for the config ? :D by default i turn this to true :) -elias
+	// for the config ? :D by default I turn this to true -elias
 	public static boolean grenadeExplode = true;
 
 	public static CreativeTabs redTab = new RedstoneKitCreativeTabs("redKitTab");
@@ -144,7 +144,7 @@ public class RedstoneKit
 		redstonePoweredBlockActive = new BlockRedstonePoweredBlock(redstonePoweredBlockActiveID, Material.rock, true).setHardness(0.5F).setStepSound(Block.soundStoneFootstep).setLightValue(0.7167F).setUnlocalizedName("redPowerBlockActive").func_111022_d("redstone_block");
 
 		redstoneIngot = new Item(redstoneIngotID).setCreativeTab(redTab).setUnlocalizedName("redIngot").func_111206_d("redstonekit:RedstoneIngot");
-		redstoneRafinedIngot = new Item(redstoneRafinedIngotID).setCreativeTab(redTab).setUnlocalizedName("redstoneRafinedIngot").func_111206_d("redstonekit:RafinedRedIngot");
+		redstoneRafinedIngot = new ItemRafinedRedstoneIngot(redstoneRafinedIngotID).setCreativeTab(redTab).setUnlocalizedName("redstoneRafinedIngot").func_111206_d("redstonekit:RafinedRedIngot");
 		redstoneBullet = new Item(redstoneBulletID).setCreativeTab(redTab).setUnlocalizedName("redBullet").func_111206_d("redstonekit:RedGunBullNorm");
 		redstoneGun = new ItemRedstoneGun(redstoneGunID).setCreativeTab(redTab).setMaxStackSize(1).setMaxDamage(127).setUnlocalizedName("redGun").func_111206_d("redstonekit:RedGun").setFull3D();
 		redstoneGrenade = new ItemRedstoneGrenade(redstoneGrenadeID).setCreativeTab(redTab).setMaxStackSize(16).setUnlocalizedName("redGrenade").func_111206_d("redstonekit:RedGrenade").setFull3D();//TODO make it work

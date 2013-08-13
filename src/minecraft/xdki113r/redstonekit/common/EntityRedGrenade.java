@@ -93,6 +93,10 @@ public class EntityRedGrenade extends EntityItem
      */
     public void onUpdate()
     {
+        for(int g = 0; g < 1; g++)
+        {
+        	worldObj.spawnParticle("smoke", posX, posY, posZ, 0.0d, 0.0d, 0.0d);
+        }
         double d = motionX;
         double d1 = motionY;
         double d2 = motionZ;
@@ -168,6 +172,8 @@ public class EntityRedGrenade extends EntityItem
             if(RedstoneKit.grenadeExplode)
             {
                 explosion.doExplosionB(true);
+            }else {
+            	explosion.doExplosionB(false);
             }
             for (int i = 0; i < 32; i++)
             {
@@ -181,30 +187,6 @@ public class EntityRedGrenade extends EntityItem
     public boolean canBeCollidedWith()
     {
         return true;
-    }
-
-    public boolean attackEntityFrom(DamageSource damagesource, float f)
-    {
-        if (this.isEntityInvulnerable())
-        {
-            return false;
-        }
-        else if (this.getEntityItem() != null && this.getEntityItem().itemID == Item.netherStar.itemID && damagesource.isExplosion())
-        {
-            return false;
-        }
-        else
-        {
-            this.setBeenAttacked();
-            this.health = (int)((float)this.health - f);
-
-            if (this.health <= 0)
-            {
-                this.setDead();
-            }
-
-            return false;
-        }
     }
     
     public void yoloExplosion()
