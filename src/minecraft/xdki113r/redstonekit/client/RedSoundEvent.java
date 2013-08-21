@@ -12,7 +12,7 @@ public class RedSoundEvent
 	{
 		try
 		{
-			event.manager.addSound("redstonekit:microondes1.ogg");
+			
 		} catch(Exception e)
 		{
 			Logger.getLogger("RedstoneKit").warning("Failed to register sounds.");

@@ -18,7 +18,7 @@ public class BlockRedstonePoweredBlock extends Block
 		this.active = isActive;
 	}
 	
-	public int idDropped()
+	public int idDropped(int par1, Random par2Random, int par3)
 	{
 		return RedstoneKit.redstonePoweredBlockIdle.blockID;
 	}

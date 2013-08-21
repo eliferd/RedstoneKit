@@ -7,24 +7,22 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
-import net.minecraft.inventory.SlotFurnace;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
-import net.minecraft.tileentity.TileEntityFurnace;
 
-public class ContainerMicrowave extends Container
+public class ContainerRedstoneMicrowave extends Container
 {
-    private TileEntityMicrowave microwave;
+    private TileEntityMicrowave furnace;
     private int lastCookTime;
     private int lastBurnTime;
     private int lastItemBurnTime;
 
-    public ContainerMicrowave(InventoryPlayer par1InventoryPlayer, TileEntityMicrowave par2TileEntityMicrowave)
+    public ContainerRedstoneMicrowave(InventoryPlayer par1InventoryPlayer, TileEntityMicrowave par2TileEntityFurnace)
     {
-        this.microwave = par2TileEntityMicrowave;
-        this.addSlotToContainer(new Slot(par2TileEntityMicrowave, 0, 56, 17));
-        this.addSlotToContainer(new Slot(par2TileEntityMicrowave, 1, 56, 53));
-        this.addSlotToContainer(new SlotMicrowave(par1InventoryPlayer.player, par2TileEntityMicrowave, 2, 116, 35));
+        this.furnace = par2TileEntityFurnace;
+        this.addSlotToContainer(new Slot(par2TileEntityFurnace, 0, 56, 17));
+        this.addSlotToContainer(new Slot(par2TileEntityFurnace, 1, 56, 53));
+        this.addSlotToContainer(new SlotMicrowave(par1InventoryPlayer.player, par2TileEntityFurnace, 2, 116, 35));
         int i;
 
         for (i = 0; i < 3; ++i)
@@ -44,9 +42,9 @@ public class ContainerMicrowave extends Container
     public void addCraftingToCrafters(ICrafting par1ICrafting)
     {
         super.addCraftingToCrafters(par1ICrafting);
-        par1ICrafting.sendProgressBarUpdate(this, 0, this.microwave.microwaveCookTime);
-        par1ICrafting.sendProgressBarUpdate(this, 1, this.microwave.microwaveBurnTime);
-        par1ICrafting.sendProgressBarUpdate(this, 2, this.microwave.currentItemBurnTime);
+        par1ICrafting.sendProgressBarUpdate(this, 0, this.furnace.furnaceCookTime);
+        par1ICrafting.sendProgressBarUpdate(this, 1, this.furnace.furnaceBurnTime);
+        par1ICrafting.sendProgressBarUpdate(this, 2, this.furnace.currentItemBurnTime);
     }
 
     /**
@@ -60,25 +58,25 @@ public class ContainerMicrowave extends Container
         {
             ICrafting icrafting = (ICrafting)this.crafters.get(i);
 
-            if (this.lastCookTime != this.microwave.microwaveCookTime)
+            if (this.lastCookTime != this.furnace.furnaceCookTime)
             {
-                icrafting.sendProgressBarUpdate(this, 0, this.microwave.microwaveCookTime);
+                icrafting.sendProgressBarUpdate(this, 0, this.furnace.furnaceCookTime);
             }
 
-            if (this.lastBurnTime != this.microwave.microwaveBurnTime)
+            if (this.lastBurnTime != this.furnace.furnaceBurnTime)
             {
-                icrafting.sendProgressBarUpdate(this, 1, this.microwave.microwaveBurnTime);
+                icrafting.sendProgressBarUpdate(this, 1, this.furnace.furnaceBurnTime);
             }
 
-            if (this.lastItemBurnTime != this.microwave.currentItemBurnTime)
+            if (this.lastItemBurnTime != this.furnace.currentItemBurnTime)
             {
-                icrafting.sendProgressBarUpdate(this, 2, this.microwave.currentItemBurnTime);
+                icrafting.sendProgressBarUpdate(this, 2, this.furnace.currentItemBurnTime);
             }
         }
 
-        this.lastCookTime = this.microwave.microwaveCookTime;
-        this.lastBurnTime = this.microwave.microwaveBurnTime;
-        this.lastItemBurnTime = this.microwave.currentItemBurnTime;
+        this.lastCookTime = this.furnace.furnaceCookTime;
+        this.lastBurnTime = this.furnace.furnaceBurnTime;
+        this.lastItemBurnTime = this.furnace.currentItemBurnTime;
     }
 
     @SideOnly(Side.CLIENT)
@@ -86,29 +84,28 @@ public class ContainerMicrowave extends Container
     {
         if (par1 == 0)
         {
-            this.microwave.microwaveCookTime = par2;
+            this.furnace.furnaceCookTime = par2;
         }
 
         if (par1 == 1)
         {
-            this.microwave.microwaveBurnTime = par2;
+            this.furnace.furnaceBurnTime = par2;
         }
 
         if (par1 == 2)
         {
-            this.microwave.currentItemBurnTime = par2;
+            this.furnace.currentItemBurnTime = par2;
         }
     }
 
     public boolean canInteractWith(EntityPlayer par1EntityPlayer)
     {
-        return this.microwave.isUseableByPlayer(par1EntityPlayer);
+        return this.furnace.isUseableByPlayer(par1EntityPlayer);
     }
 
     /**
      * Called when a player shift-clicks on a slot. You must override this or you will crash when someone does that.
      */
-    @Override
     public ItemStack transferStackInSlot(EntityPlayer par1EntityPlayer, int par2)
     {
         ItemStack itemstack = null;
@@ -137,7 +134,7 @@ public class ContainerMicrowave extends Container
                         return null;
                     }
                 }
-                else if (TileEntityFurnace.isItemFuel(itemstack1))
+                else if (TileEntityMicrowave.isItemFuel(itemstack1))
                 {
                     if (!this.mergeItemStack(itemstack1, 1, 2, false))
                     {

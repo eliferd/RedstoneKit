@@ -14,6 +14,9 @@ import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
+import net.minecraft.stats.Achievement;
+import net.minecraft.stats.AchievementList;
+import net.minecraftforge.common.AchievementPage;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.EnumHelper;
 import net.minecraftforge.common.MinecraftForge;
@@ -64,6 +67,8 @@ public class RedstoneKit
 	
 	static EnumArmorMaterial RedstoneArmor = EnumHelper.addArmorMaterial("Redstone", 35, new int[]{ 4, 10, 8, 5 }, 30);
 	static EnumToolMaterial RedstoneTool = EnumHelper.addToolMaterial("Redstone", 150, 2634, 13F, 4, 4);
+	
+	public static Achievement gettingRedstone, craftingMicrowave, craftingRedGlass, craftingRedGrenade, craftingRedPick, smeltingRedstone;
 	
 	public int redstoneBulletEntityID;
 
@@ -133,21 +138,21 @@ public class RedstoneKit
 			MinecraftForge.EVENT_BUS.register(new RedSoundEvent());
 		}
 		
-		redstoneGlass = new BlockRedstoneGlass(redstoneGlassID, Material.glass).setCreativeTab(redTab).setStepSound(Block.soundGlassFootstep).setLightValue(1F).setLightOpacity(0).setHardness(0.3F).setUnlocalizedName("redGlass").func_111022_d("redstonekit:RedstoneGlass");
+		redstoneGlass = new BlockRedstoneGlass(redstoneGlassID, Material.glass).setCreativeTab(redTab).setStepSound(Block.soundGlassFootstep).setLightValue(1F).setLightOpacity(0).setHardness(0.3F).setUnlocalizedName("redGlass");
 		redstoneProtection = new BlockRedstoneProtection(redstoneProtectionID).setCreativeTab(redTab).setStepSound(Block.soundStoneFootstep).setHardness(5F).setUnlocalizedName("redProtection");
 		redstoneMobHead = new Block/* RedstoneMobHead */(redstoneMobHeadID, Material.rock).setCreativeTab(redTab).setStepSound(Block.soundStoneFootstep).setHardness(1F).setUnlocalizedName("redSkull");
 		redstoneFenceIdle = new BlockRedstoneFence(redstoneFenceIdleID, false).setCreativeTab(redTab).setStepSound(Block.soundWoodFootstep).setHardness(0.5F).setUnlocalizedName("redFenceIdle").func_111022_d("redstone_block");
 		redstoneFenceActive = new BlockRedstoneFence(redstoneFenceActiveID, true).setStepSound(Block.soundWoodFootstep).setHardness(0.5F).setLightValue(0.2F).setUnlocalizedName("redFenceActive").func_111022_d("redstone_block");
-		redstoneMicrowaveIdle = new BlockRedstoneMicrowave(redstoneMicrowaveIdleID, Material.rock, false).setCreativeTab(redTab).setHardness(3.5F).setStepSound(Block.soundStoneFootstep).setUnlocalizedName("redMicrowaveIdle");
-		redstoneMicrowaveActive = new BlockRedstoneMicrowave(redstoneMicrowaveActiveID, Material.rock, true).setHardness(3.5F).setStepSound(Block.soundStoneFootstep).setLightValue(0.3F).setUnlocalizedName("redMicrowaveActive");
+		redstoneMicrowaveIdle = new BlockRedstoneMicrowave(redstoneMicrowaveIdleID, false).setCreativeTab(redTab).setHardness(3.5F).setStepSound(Block.soundStoneFootstep).setUnlocalizedName("redMicrowaveIdle");
+		redstoneMicrowaveActive = new BlockRedstoneMicrowave(redstoneMicrowaveActiveID, true).setHardness(3.5F).setStepSound(Block.soundStoneFootstep).setLightValue(0.3F).setUnlocalizedName("redMicrowaveActive");
 		redstonePoweredBlockIdle = new BlockRedstonePoweredBlock(redstonePoweredBlockIdleID, Material.rock, false).setCreativeTab(redTab).setHardness(0.5F).setStepSound(Block.soundStoneFootstep).setUnlocalizedName("redPowerBlockIdle").func_111022_d("redstone_block");
 		redstonePoweredBlockActive = new BlockRedstonePoweredBlock(redstonePoweredBlockActiveID, Material.rock, true).setHardness(0.5F).setStepSound(Block.soundStoneFootstep).setLightValue(0.7167F).setUnlocalizedName("redPowerBlockActive").func_111022_d("redstone_block");
-
+		
 		redstoneIngot = new Item(redstoneIngotID).setCreativeTab(redTab).setUnlocalizedName("redIngot").func_111206_d("redstonekit:RedstoneIngot");
 		redstoneRafinedIngot = new ItemRafinedRedstoneIngot(redstoneRafinedIngotID).setCreativeTab(redTab).setUnlocalizedName("redstoneRafinedIngot").func_111206_d("redstonekit:RafinedRedIngot");
 		redstoneBullet = new Item(redstoneBulletID).setCreativeTab(redTab).setUnlocalizedName("redBullet").func_111206_d("redstonekit:RedGunBullNorm");
 		redstoneGun = new ItemRedstoneGun(redstoneGunID).setCreativeTab(redTab).setMaxStackSize(1).setMaxDamage(127).setUnlocalizedName("redGun").func_111206_d("redstonekit:RedGun").setFull3D();
-		redstoneGrenade = new ItemRedstoneGrenade(redstoneGrenadeID).setCreativeTab(redTab).setMaxStackSize(16).setUnlocalizedName("redGrenade").func_111206_d("redstonekit:RedGrenade").setFull3D();//TODO make it work
+		redstoneGrenade = new ItemRedstoneGrenade(redstoneGrenadeID).setCreativeTab(redTab).setMaxStackSize(16).setUnlocalizedName("redGrenade").func_111206_d("redstonekit:RedGrenade").setFull3D();
 		redstoneStick = new Item(redstoneStickID).setCreativeTab(redTab).setUnlocalizedName("redStick").func_111206_d("redstonekit:RedstoneStick");
 		redstoneHelmet = new ItemRedstoneArmor(redstoneHelmetID, RedstoneArmor, 0, 0).setCreativeTab(redTab).setUnlocalizedName("redHelmet").func_111206_d("redstonekit:Helmet");
 		redstoneChestplate = new ItemRedstoneArmor(redstoneChestplateID, RedstoneArmor, 0, 1).setCreativeTab(redTab).setUnlocalizedName("redChestplate").func_111206_d("redstonekit:Chest");
@@ -158,6 +163,8 @@ public class RedstoneKit
 		redShovel = new ItemSpade(redShovelID, RedstoneTool).setCreativeTab(redTab).setUnlocalizedName("redShovel").func_111206_d("redstonekit:RedstoneShovel");
 		redHoe = new ItemHoe(redHoeID, RedstoneTool).setCreativeTab(redTab).setUnlocalizedName("redHoe").func_111206_d("redstonekit:RedstoneHoe");
 		redSword = new ItemSword(redSwordID, RedstoneTool).setCreativeTab(redTab).setUnlocalizedName("redSword").func_111206_d("redstonekit:RedstoneSword");
+		
+		
 	}
 	
 	@EventHandler
@@ -166,6 +173,11 @@ public class RedstoneKit
 		registerBlocks();
 		registerItems();
 		registerCrafts();
+		
+		initAchievements();
+		
+		GameRegistry.registerCraftingHandler(new RedKitCraftingHandler());
+		GameRegistry.registerPickupHandler(new RedKitPickupHandler());
 		
 		GameRegistry.registerTileEntity(TileEntityMicrowave.class, microwaveTileEntityID);
 		NetworkRegistry.instance().registerGuiHandler(this, new GuiHandler());
@@ -225,7 +237,7 @@ public class RedstoneKit
 			" R ", " R ", " S ", Character.valueOf('R'), redstoneIngot, Character.valueOf('S'), Item.stick
 		});
 	   GameRegistry.addShapedRecipe(new ItemStack(redstoneProtection, 1), new Object []{
-			"III", "IRI", "III", Character.valueOf('R'), Item.diamond, Character.valueOf('I'), redstoneIngot
+			"III", "IRI", "III", Character.valueOf('R'), Item.diamond, Character.valueOf('I'), Block.blockRedstone
 		});
 	   GameRegistry.addShapedRecipe(new ItemStack(redstoneGlass, 8), new Object []{
 			"RRR", "RGR", "RRR", Character.valueOf('R'), Block.blockRedstone, Character.valueOf('G'), Block.glass
@@ -263,6 +275,18 @@ public class RedstoneKit
 	   GameRegistry.addShapedRecipe(new ItemStack(redstoneStick, 1), new Object[]{
 			"R", "R", Character.valueOf('R'), redstoneIngot
 		});
+	   
+	   GameRegistry.addSmelting(Item.redstone.itemID, new ItemStack(redstoneIngot), 2F);
+	   GameRegistry.addSmelting(redstoneIngot.itemID, new ItemStack(redstoneRafinedIngot), 2F);
+	}
+	
+	public void initAchievements() {
+		gettingRedstone = new Achievement(AchievementList.achievementList.size() + 1, "gettingRedstone", 7, 3, Item.redstone, AchievementList.buildBetterPickaxe).registerAchievement();
+		smeltingRedstone = new Achievement(AchievementList.achievementList.size() + 2, "smeltingRedstone", 6, 4, redstoneIngot, gettingRedstone).registerAchievement();
+		craftingRedPick = new Achievement(AchievementList.achievementList.size() + 3, "craftingRedPick", 9, 4, redPick, smeltingRedstone).setSpecial().registerAchievement();
+		craftingRedGrenade = new Achievement(AchievementList.achievementList.size() + 4, "craftingRedGrenade", 8, 5, redstoneGrenade, smeltingRedstone).registerAchievement();
+		craftingMicrowave  = new Achievement(AchievementList.achievementList.size() + 5, "craftingMicrowave", 4, 8, redstoneMicrowaveIdle, AchievementList.buildFurnace).setSpecial().registerAchievement();
+		craftingRedGlass = new Achievement(AchievementList.achievementList.size() + 6, "craftingRedGlass", 5, 6, redstoneGlass, AchievementList.buildFurnace).registerAchievement();
 	}
 	
 	public static int getBulletDamage()

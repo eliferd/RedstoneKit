@@ -13,6 +13,7 @@ import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.item.ItemTool;
+import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
@@ -26,30 +27,30 @@ public class TileEntityMicrowave extends TileEntity implements ISidedInventory
     private static final int[] slots_sides = new int[] {1};
 
     /**
-     * The ItemStacks that hold the items currently being used in the microwave
+     * The ItemStacks that hold the items currently being used in the furnace
      */
-    private ItemStack[] microwaveItemStacks = new ItemStack[3];
+    private ItemStack[] furnaceItemStacks = new ItemStack[3];
 
-    /** The number of ticks that the microwave will keep burning */
-    public int microwaveBurnTime;
-    
-    public final int cookSpeed = 100;
+    /** The number of ticks that the furnace will keep burning */
+    public int furnaceBurnTime;
 
     /**
-     * The number of ticks that a fresh copy of the currently-burning item would keep the microwave burning for
+     * The number of ticks that a fresh copy of the currently-burning item would keep the furnace burning for
      */
     public int currentItemBurnTime;
 
     /** The number of ticks that the current item has been cooking for */
-    public int microwaveCookTime;
+    public int furnaceCookTime;
     private String field_94130_e;
+    
+    private final int cookTime = 150;
 
     /**
      * Returns the number of slots in the inventory.
      */
     public int getSizeInventory()
     {
-        return this.microwaveItemStacks.length;
+        return this.furnaceItemStacks.length;
     }
 
     /**
@@ -57,7 +58,7 @@ public class TileEntityMicrowave extends TileEntity implements ISidedInventory
      */
     public ItemStack getStackInSlot(int par1)
     {
-        return this.microwaveItemStacks[par1];
+        return this.furnaceItemStacks[par1];
     }
 
     /**
@@ -66,23 +67,23 @@ public class TileEntityMicrowave extends TileEntity implements ISidedInventory
      */
     public ItemStack decrStackSize(int par1, int par2)
     {
-        if (this.microwaveItemStacks[par1] != null)
+        if (this.furnaceItemStacks[par1] != null)
         {
             ItemStack itemstack;
 
-            if (this.microwaveItemStacks[par1].stackSize <= par2)
+            if (this.furnaceItemStacks[par1].stackSize <= par2)
             {
-                itemstack = this.microwaveItemStacks[par1];
-                this.microwaveItemStacks[par1] = null;
+                itemstack = this.furnaceItemStacks[par1];
+                this.furnaceItemStacks[par1] = null;
                 return itemstack;
             }
             else
             {
-                itemstack = this.microwaveItemStacks[par1].splitStack(par2);
+                itemstack = this.furnaceItemStacks[par1].splitStack(par2);
 
-                if (this.microwaveItemStacks[par1].stackSize == 0)
+                if (this.furnaceItemStacks[par1].stackSize == 0)
                 {
-                    this.microwaveItemStacks[par1] = null;
+                    this.furnaceItemStacks[par1] = null;
                 }
 
                 return itemstack;
@@ -100,10 +101,10 @@ public class TileEntityMicrowave extends TileEntity implements ISidedInventory
      */
     public ItemStack getStackInSlotOnClosing(int par1)
     {
-        if (this.microwaveItemStacks[par1] != null)
+        if (this.furnaceItemStacks[par1] != null)
         {
-            ItemStack itemstack = this.microwaveItemStacks[par1];
-            this.microwaveItemStacks[par1] = null;
+            ItemStack itemstack = this.furnaceItemStacks[par1];
+            this.furnaceItemStacks[par1] = null;
             return itemstack;
         }
         else
@@ -117,7 +118,7 @@ public class TileEntityMicrowave extends TileEntity implements ISidedInventory
      */
     public void setInventorySlotContents(int par1, ItemStack par2ItemStack)
     {
-        this.microwaveItemStacks[par1] = par2ItemStack;
+        this.furnaceItemStacks[par1] = par2ItemStack;
 
         if (par2ItemStack != null && par2ItemStack.stackSize > this.getInventoryStackLimit())
         {
@@ -157,22 +158,22 @@ public class TileEntityMicrowave extends TileEntity implements ISidedInventory
     {
         super.readFromNBT(par1NBTTagCompound);
         NBTTagList nbttaglist = par1NBTTagCompound.getTagList("Items");
-        this.microwaveItemStacks = new ItemStack[this.getSizeInventory()];
+        this.furnaceItemStacks = new ItemStack[this.getSizeInventory()];
 
         for (int i = 0; i < nbttaglist.tagCount(); ++i)
         {
             NBTTagCompound nbttagcompound1 = (NBTTagCompound)nbttaglist.tagAt(i);
             byte b0 = nbttagcompound1.getByte("Slot");
 
-            if (b0 >= 0 && b0 < this.microwaveItemStacks.length)
+            if (b0 >= 0 && b0 < this.furnaceItemStacks.length)
             {
-                this.microwaveItemStacks[b0] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
+                this.furnaceItemStacks[b0] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
             }
         }
 
-        this.microwaveBurnTime = par1NBTTagCompound.getShort("BurnTime");
-        this.microwaveCookTime = par1NBTTagCompound.getShort("CookTime");
-        this.currentItemBurnTime = getItemBurnTime(this.microwaveItemStacks[1]);
+        this.furnaceBurnTime = par1NBTTagCompound.getShort("BurnTime");
+        this.furnaceCookTime = par1NBTTagCompound.getShort("CookTime");
+        this.currentItemBurnTime = getItemBurnTime(this.furnaceItemStacks[1]);
 
         if (par1NBTTagCompound.hasKey("CustomName"))
         {
@@ -186,17 +187,17 @@ public class TileEntityMicrowave extends TileEntity implements ISidedInventory
     public void writeToNBT(NBTTagCompound par1NBTTagCompound)
     {
         super.writeToNBT(par1NBTTagCompound);
-        par1NBTTagCompound.setShort("BurnTime", (short)this.microwaveBurnTime);
-        par1NBTTagCompound.setShort("CookTime", (short)this.microwaveCookTime);
+        par1NBTTagCompound.setShort("BurnTime", (short)this.furnaceBurnTime);
+        par1NBTTagCompound.setShort("CookTime", (short)this.furnaceCookTime);
         NBTTagList nbttaglist = new NBTTagList();
 
-        for (int i = 0; i < this.microwaveItemStacks.length; ++i)
+        for (int i = 0; i < this.furnaceItemStacks.length; ++i)
         {
-            if (this.microwaveItemStacks[i] != null)
+            if (this.furnaceItemStacks[i] != null)
             {
                 NBTTagCompound nbttagcompound1 = new NBTTagCompound();
                 nbttagcompound1.setByte("Slot", (byte)i);
-                this.microwaveItemStacks[i].writeToNBT(nbttagcompound1);
+                this.furnaceItemStacks[i].writeToNBT(nbttagcompound1);
                 nbttaglist.appendTag(nbttagcompound1);
             }
         }
@@ -226,7 +227,7 @@ public class TileEntityMicrowave extends TileEntity implements ISidedInventory
      */
     public int getCookProgressScaled(int par1)
     {
-        return this.microwaveCookTime * par1 / cookSpeed;
+        return this.furnaceCookTime * par1 / cookTime;
     }
 
     @SideOnly(Side.CLIENT)
@@ -239,18 +240,18 @@ public class TileEntityMicrowave extends TileEntity implements ISidedInventory
     {
         if (this.currentItemBurnTime == 0)
         {
-            this.currentItemBurnTime = cookSpeed;
+            this.currentItemBurnTime = cookTime;
         }
 
-        return this.microwaveBurnTime * par1 / this.currentItemBurnTime;
+        return this.furnaceBurnTime * par1 / this.currentItemBurnTime;
     }
 
     /**
-     * Returns true if the microwave is currently burning
+     * Returns true if the furnace is currently burning
      */
     public boolean isBurning()
     {
-        return this.microwaveBurnTime > 0;
+        return this.furnaceBurnTime > 0;
     }
 
     /**
@@ -259,31 +260,31 @@ public class TileEntityMicrowave extends TileEntity implements ISidedInventory
      */
     public void updateEntity()
     {
-        boolean flag = this.microwaveBurnTime > 0;
+        boolean flag = this.furnaceBurnTime > 0;
         boolean flag1 = false;
 
-        if (this.microwaveBurnTime > 0)
+        if (this.furnaceBurnTime > 0)
         {
-            --this.microwaveBurnTime;
+            --this.furnaceBurnTime;
         }
 
         if (!this.worldObj.isRemote)
         {
-            if (this.microwaveBurnTime == 0 && this.canSmelt())
+            if (this.furnaceBurnTime == 0 && this.canSmelt())
             {
-                this.currentItemBurnTime = this.microwaveBurnTime = getItemBurnTime(this.microwaveItemStacks[1]);
+                this.currentItemBurnTime = this.furnaceBurnTime = getItemBurnTime(this.furnaceItemStacks[1]);
 
-                if (this.microwaveBurnTime > 0)
+                if (this.furnaceBurnTime > 0)
                 {
                     flag1 = true;
 
-                    if (this.microwaveItemStacks[1] != null)
+                    if (this.furnaceItemStacks[1] != null)
                     {
-                        --this.microwaveItemStacks[1].stackSize;
+                        --this.furnaceItemStacks[1].stackSize;
 
-                        if (this.microwaveItemStacks[1].stackSize == 0)
+                        if (this.furnaceItemStacks[1].stackSize == 0)
                         {
-                            this.microwaveItemStacks[1] = this.microwaveItemStacks[1].getItem().getContainerItemStack(microwaveItemStacks[1]);
+                            this.furnaceItemStacks[1] = this.furnaceItemStacks[1].getItem().getContainerItemStack(furnaceItemStacks[1]);
                         }
                     }
                 }
@@ -291,24 +292,24 @@ public class TileEntityMicrowave extends TileEntity implements ISidedInventory
 
             if (this.isBurning() && this.canSmelt())
             {
-                ++this.microwaveCookTime;
+                ++this.furnaceCookTime;
 
-                if (this.microwaveCookTime == cookSpeed)
+                if (this.furnaceCookTime == cookTime)
                 {
-                    this.microwaveCookTime = 0;
+                    this.furnaceCookTime = 0;
                     this.smeltItem();
                     flag1 = true;
                 }
             }
             else
             {
-                this.microwaveCookTime = 0;
+                this.furnaceCookTime = 0;
             }
 
-            if (flag != this.microwaveBurnTime > 0)
+            if (flag != this.furnaceBurnTime > 0)
             {
                 flag1 = true;
-                BlockRedstoneMicrowave.updateMicrowaveBlockState(this.microwaveBurnTime > 0, this.worldObj, this.xCoord, this.yCoord, this.zCoord);
+                BlockRedstoneMicrowave.updateFurnaceBlockState(this.furnaceBurnTime > 0, this.worldObj, this.xCoord, this.yCoord, this.zCoord);
             }
         }
 
@@ -319,54 +320,54 @@ public class TileEntityMicrowave extends TileEntity implements ISidedInventory
     }
 
     /**
-     * Returns true if the microwave can smelt an item, i.e. has a source item, destination stack isn't full, etc.
+     * Returns true if the furnace can smelt an item, i.e. has a source item, destination stack isn't full, etc.
      */
     private boolean canSmelt()
     {
-        if (this.microwaveItemStacks[0] == null)
+        if (this.furnaceItemStacks[0] == null)
         {
             return false;
         }
         else
         {
-            ItemStack itemstack = MicrowaveRecipes.smelting().getSmeltingResult(this.microwaveItemStacks[0]);
+            ItemStack itemstack = FurnaceRecipes.smelting().getSmeltingResult(this.furnaceItemStacks[0]);
             if (itemstack == null) return false;
-            if (this.microwaveItemStacks[2] == null) return true;
-            if (!this.microwaveItemStacks[2].isItemEqual(itemstack)) return false;
-            int result = microwaveItemStacks[2].stackSize + itemstack.stackSize;
+            if (this.furnaceItemStacks[2] == null) return true;
+            if (!this.furnaceItemStacks[2].isItemEqual(itemstack)) return false;
+            int result = furnaceItemStacks[2].stackSize + itemstack.stackSize;
             return (result <= getInventoryStackLimit() && result <= itemstack.getMaxStackSize());
         }
     }
 
     /**
-     * Turn one item from the microwave source stack into the appropriate smelted item in the microwave result stack
+     * Turn one item from the furnace source stack into the appropriate smelted item in the furnace result stack
      */
     public void smeltItem()
     {
         if (this.canSmelt())
         {
-            ItemStack itemstack = MicrowaveRecipes.smelting().getSmeltingResult(this.microwaveItemStacks[0]);
+            ItemStack itemstack = FurnaceRecipes.smelting().getSmeltingResult(this.furnaceItemStacks[0]);
 
-            if (this.microwaveItemStacks[2] == null)
+            if (this.furnaceItemStacks[2] == null)
             {
-                this.microwaveItemStacks[2] = itemstack.copy();
+                this.furnaceItemStacks[2] = itemstack.copy();
             }
-            else if (this.microwaveItemStacks[2].isItemEqual(itemstack))
+            else if (this.furnaceItemStacks[2].isItemEqual(itemstack))
             {
-                microwaveItemStacks[2].stackSize += itemstack.stackSize;
+                furnaceItemStacks[2].stackSize += itemstack.stackSize;
             }
 
-            --this.microwaveItemStacks[0].stackSize;
+            --this.furnaceItemStacks[0].stackSize;
 
-            if (this.microwaveItemStacks[0].stackSize <= 0)
+            if (this.furnaceItemStacks[0].stackSize <= 0)
             {
-                this.microwaveItemStacks[0] = null;
+                this.furnaceItemStacks[0] = null;
             }
         }
     }
 
     /**
-     * Returns the number of ticks that the supplied fuel item will keep the microwave burning, or 0 if the item isn't
+     * Returns the number of ticks that the supplied fuel item will keep the furnace burning, or 0 if the item isn't
      * fuel
      */
     public static int getItemBurnTime(ItemStack par0ItemStack)
@@ -379,30 +380,10 @@ public class TileEntityMicrowave extends TileEntity implements ISidedInventory
         {
             int i = par0ItemStack.getItem().itemID;
             Item item = par0ItemStack.getItem();
-
-            if (par0ItemStack.getItem() instanceof ItemBlock && Block.blocksList[i] != null)
-            {
-                Block block = Block.blocksList[i];
-
-                if (block == Block.woodSingleSlab)
-                {
-                    return 150;
-                }
-
-                if (block.blockMaterial == Material.wood)
-                {
-                    return 300;
-                }
-
-                if (block == Block.field_111034_cE)
-                {
-                    return 16000;
-                }
-            }
-
+            
             if (i == Item.redstone.itemID) return 100;
             if (i == Block.blockRedstone.blockID) return 900;
-            return GameRegistry.getFuelValue(par0ItemStack);
+            return 0;
         }
     }
 

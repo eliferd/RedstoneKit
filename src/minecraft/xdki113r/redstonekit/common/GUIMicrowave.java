@@ -9,15 +9,15 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
-public class GUIMicrowave extends GuiContainer
+public class GuiMicrowave extends GuiContainer
 {
     private static final ResourceLocation field_110410_t = new ResourceLocation("textures/gui/container/furnace.png");
-    private TileEntityMicrowave microwaveInventory;
+    private TileEntityMicrowave furnaceInventory;
 
-    public GUIMicrowave(InventoryPlayer par1InventoryPlayer, TileEntityMicrowave par2TileEntityMicrowave)
+    public GuiMicrowave(InventoryPlayer par1InventoryPlayer, TileEntityMicrowave par2TileEntityFurnace)
     {
-        super(new ContainerMicrowave(par1InventoryPlayer, par2TileEntityMicrowave));
-        this.microwaveInventory = par2TileEntityMicrowave;
+        super(new ContainerRedstoneMicrowave(par1InventoryPlayer, par2TileEntityFurnace));
+        this.furnaceInventory = par2TileEntityFurnace;
     }
 
     /**
@@ -25,7 +25,7 @@ public class GUIMicrowave extends GuiContainer
      */
     protected void drawGuiContainerForegroundLayer(int par1, int par2)
     {
-        String s = this.microwaveInventory.isInvNameLocalized() ? this.microwaveInventory.getInvName() : I18n.func_135053_a(this.microwaveInventory.getInvName());
+        String s = this.furnaceInventory.isInvNameLocalized() ? this.furnaceInventory.getInvName() : I18n.func_135053_a(this.furnaceInventory.getInvName());
         this.fontRenderer.drawString(s, this.xSize / 2 - this.fontRenderer.getStringWidth(s) / 2, 6, 4210752);
         this.fontRenderer.drawString(I18n.func_135053_a("container.inventory"), 8, this.ySize - 96 + 2, 4210752);
     }
@@ -42,13 +42,13 @@ public class GUIMicrowave extends GuiContainer
         this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
         int i1;
 
-        if (this.microwaveInventory.isBurning())
+        if (this.furnaceInventory.isBurning())
         {
-            i1 = this.microwaveInventory.getBurnTimeRemainingScaled(12);
+            i1 = this.furnaceInventory.getBurnTimeRemainingScaled(12);
             this.drawTexturedModalRect(k + 56, l + 36 + 12 - i1, 176, 12 - i1, 14, i1 + 2);
         }
 
-        i1 = this.microwaveInventory.getCookProgressScaled(24);
+        i1 = this.furnaceInventory.getCookProgressScaled(24);
         this.drawTexturedModalRect(k + 79, l + 34, 176, 14, i1 + 1, 16);
     }
 }

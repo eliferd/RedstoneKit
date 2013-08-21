@@ -14,7 +14,7 @@ public class GuiHandler implements IGuiHandler
 		TileEntity tileentity = world.getBlockTileEntity(x, y, z);
 		if(tileentity instanceof TileEntityMicrowave)
 		{
-			return new ContainerMicrowave(player.inventory, (TileEntityMicrowave) tileentity);
+			return new ContainerRedstoneMicrowave(player.inventory, (TileEntityMicrowave) tileentity);
 		}
 		return null;
 	}
@@ -26,7 +26,7 @@ public class GuiHandler implements IGuiHandler
 		
 		if(tileentity instanceof TileEntityMicrowave)
 		{
-			return new GUIMicrowave(player.inventory, (TileEntityMicrowave) tileentity);
+			return new GuiMicrowave(player.inventory, (TileEntityMicrowave) tileentity);
 		}
 		return null;
 	}

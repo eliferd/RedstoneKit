@@ -11,7 +11,9 @@ import net.minecraft.block.BlockFence;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.IBlockAccess;
@@ -214,8 +216,8 @@ public class BlockRedstoneFence extends BlockFence
 	
 	public void onEntityCollidedWithBlock(World world, int par3, int par4, int par5, Entity entity) {
 		if(this.isActive) {
-			if(entity instanceof EntityLiving) {
-				entity.attackEntityFrom(DamageSource.causeMobDamage((EntityLiving)(entity)), 2);
+			if(entity instanceof EntityLivingBase) {
+				entity.attackEntityFrom(DamageSource.causeMobDamage((EntityLivingBase)(entity)), 2);
 			} else if(entity instanceof EntityItem) {
 				((EntityItem)(entity)).setDead();
 			}
