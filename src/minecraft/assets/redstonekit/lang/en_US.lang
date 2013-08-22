@@ -33,3 +33,17 @@ item.redAxe.name=Redstone Axe
 item.redShovel.name=Redstone Shovel
 item.redHoe.name=Redstone Hoe
 item.redSword.name=Redstone Sword
+
+#Achievements
+achievement.gettingRedstone=Getting Redstone
+achievement.gettingRedstone.desc=That little powder
+achievement.smeltingRedstone=Burning Electricity
+achievement.smeltingRedstone.desc=What is it doing?
+achievement.craftingRedPick=Little bit cheaty
+achievement.craftingRedPick.desc=Why not?
+achievement.craftingRedGrenade=Let's do this
+achievement.craftingRedGrenade.desc=Creepers' fear
+achievement.craftingRedGlass=Clear glass
+achievement.craftingRedGlass.desc=Connected Textures?
+achievement.craftingMicrowave=Better than furnace
+achievement.craftingMicrowave.desc=Time is money
