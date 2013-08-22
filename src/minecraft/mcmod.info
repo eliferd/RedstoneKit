@@ -3,9 +3,9 @@
   "modid": "RedstoneKit",
   "name": "Redstone Kit",
   "version": "2.2",
-  "description": "",
+  "description": "You don't know what to do with your redstone ? Here it is!",
   "logoFile": "/redstoneKitLogo.png",
-  "url": "",
+  "url": "http://bit.ly/redkit",
   "updateUrl": "",
   "authors": ["XDki113r", "robin4002", "elias54"]
 }
