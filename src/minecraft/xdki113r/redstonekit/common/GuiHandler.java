@@ -16,6 +16,10 @@ public class GuiHandler implements IGuiHandler
 		{
 			return new ContainerRedstoneMicrowave(player.inventory, (TileEntityMicrowave) tileentity);
 		}
+		else if(tileentity instanceof TileEntityCompressor)
+		{
+			return new ContainerCompressor(player.inventory, (TileEntityCompressor) tileentity);
+		}
 		return null;
 	}
 
@@ -27,6 +31,10 @@ public class GuiHandler implements IGuiHandler
 		if(tileentity instanceof TileEntityMicrowave)
 		{
 			return new GuiMicrowave(player.inventory, (TileEntityMicrowave) tileentity);
+		}
+		else if(tileentity instanceof TileEntityCompressor)
+		{
+			return new GuiCompressor(player.inventory, (TileEntityCompressor) tileentity);
 		}
 		return null;
 	}

@@ -49,21 +49,21 @@ public class RedstoneKit
 	public static Item redstoneGun, redstoneIngot, redstoneRafinedIngot,
 			redstoneBullet, redstoneGrenade, redstoneHelmet,
 			redstoneChestplate, redstoneLeggings, redstoneBoots, redPick,
-			redAxe, redShovel, redHoe, redSword, redstoneStick;
+			redAxe, redShovel, redHoe, redSword, redstoneStick, utilityItem;
 	// redstoneStick is for project in future -> DO NOT USE AS TOOLS' STICKS
 	public static Block redstoneGlass, redstoneProtection, redstoneMobHead,
 			redstoneFenceIdle, redstoneFenceActive, redstoneMicrowaveIdle,
 			redstoneMicrowaveActive, redstonePoweredBlockIdle,
-			redstonePoweredBlockActive;
+			redstonePoweredBlockActive, redstoneCompressor;
 
 	public int redstoneGunID, redstoneIngotID, redstoneRafinedIngotID,
 			redstoneBulletID, redstoneGrenadeID, redstoneHelmetID,
 			redstoneChestplateID, redstoneLeggingsID, redstoneBootsID,
 			redPickID, redAxeID, redShovelID, redHoeID, redSwordID,
-			redstoneStickID, redstoneGlassID, redstoneProtectionID,
+			redstoneStickID, utilityItemsID, redstoneGlassID, redstoneProtectionID,
 			redstoneMobHeadID, redstoneFenceIdleID, redstoneFenceActiveID,
 			redstoneMicrowaveIdleID, redstoneMicrowaveActiveID,
-			redstonePoweredBlockIdleID, redstonePoweredBlockActiveID;
+			redstonePoweredBlockIdleID, redstonePoweredBlockActiveID, redstoneCompressorID;
 	
 	static EnumArmorMaterial RedstoneArmor = EnumHelper.addArmorMaterial("Redstone", 35, new int[]{ 4, 10, 8, 5 }, 30);
 	static EnumToolMaterial RedstoneTool = EnumHelper.addToolMaterial("Redstone", 150, 2634, 13F, 4, 4);
@@ -74,7 +74,7 @@ public class RedstoneKit
 
 	public static int redstoneBulletDamage;
 
-	public String microwaveTileEntityID = "Microwave";
+	public String microwaveTileEntityID = "Microwave", compressorTileEntityID = "Compressor";
 
 	public static boolean modLoaded;
 	
@@ -115,6 +115,7 @@ public class RedstoneKit
 			redHoeID = cfg.getItem("Redstone Hoe Item ID", 12512).getInt();
 			redSwordID = cfg.getItem("Redstone Sword Item ID", 12513).getInt();
 			redstoneStickID = cfg.getItem("Redstone Stick Item ID", 12514).getInt();
+			utilityItemsID = cfg.getItem("Utility items", 12515, "Multiple on the same ID").getInt();
 
 			redstoneGlassID = cfg.getBlock("Redstone Glass Block ID", 1200).getInt();
 			redstoneProtectionID = cfg.getBlock("Redstone Protection Block ID", 1201).getInt();
@@ -142,11 +143,12 @@ public class RedstoneKit
 		redstoneProtection = new BlockRedstoneProtection(redstoneProtectionID).setCreativeTab(redTab).setStepSound(Block.soundStoneFootstep).setHardness(5F).setUnlocalizedName("redProtection");
 		redstoneMobHead = new Block/* RedstoneMobHead */(redstoneMobHeadID, Material.rock).setCreativeTab(redTab).setStepSound(Block.soundStoneFootstep).setHardness(1F).setUnlocalizedName("redSkull");
 		redstoneFenceIdle = new BlockRedstoneFence(redstoneFenceIdleID, false).setCreativeTab(redTab).setStepSound(Block.soundWoodFootstep).setHardness(0.5F).setUnlocalizedName("redFenceIdle").func_111022_d("redstone_block");
-		redstoneFenceActive = new BlockRedstoneFence(redstoneFenceActiveID, true).setStepSound(Block.soundWoodFootstep).setHardness(0.5F).setLightValue(0.2F).setUnlocalizedName("redFenceActive").func_111022_d("redstone_block");
+		redstoneFenceActive = new BlockRedstoneFence(redstoneFenceActiveID, true).setCreativeTab(null).setStepSound(Block.soundWoodFootstep).setHardness(0.5F).setLightValue(0.2F).setUnlocalizedName("redFenceActive").func_111022_d("redstone_block");
 		redstoneMicrowaveIdle = new BlockRedstoneMicrowave(redstoneMicrowaveIdleID, false).setCreativeTab(redTab).setHardness(3.5F).setStepSound(Block.soundStoneFootstep).setUnlocalizedName("redMicrowaveIdle");
-		redstoneMicrowaveActive = new BlockRedstoneMicrowave(redstoneMicrowaveActiveID, true).setHardness(3.5F).setStepSound(Block.soundStoneFootstep).setLightValue(0.3F).setUnlocalizedName("redMicrowaveActive");
+		redstoneMicrowaveActive = new BlockRedstoneMicrowave(redstoneMicrowaveActiveID, true).setCreativeTab(null).setHardness(3.5F).setStepSound(Block.soundStoneFootstep).setLightValue(0.3F).setUnlocalizedName("redMicrowaveActive");
 		redstonePoweredBlockIdle = new BlockRedstonePoweredBlock(redstonePoweredBlockIdleID, Material.rock, false).setCreativeTab(redTab).setHardness(0.5F).setStepSound(Block.soundStoneFootstep).setUnlocalizedName("redPowerBlockIdle").func_111022_d("redstone_block");
-		redstonePoweredBlockActive = new BlockRedstonePoweredBlock(redstonePoweredBlockActiveID, Material.rock, true).setHardness(0.5F).setStepSound(Block.soundStoneFootstep).setLightValue(0.7167F).setUnlocalizedName("redPowerBlockActive").func_111022_d("redstone_block");
+		redstonePoweredBlockActive = new BlockRedstonePoweredBlock(redstonePoweredBlockActiveID, Material.rock, true).setCreativeTab(null).setHardness(0.5F).setStepSound(Block.soundStoneFootstep).setLightValue(0.7167F).setUnlocalizedName("redPowerBlockActive").func_111022_d("redstone_block");
+		redstoneCompressor = new BlockRedstoneCompressor(redstoneCompressorID, Material.rock).setCreativeTab(redTab).setHardness(3.5F).setStepSound(Block.soundMetalFootstep).setUnlocalizedName("compressor");
 		
 		redstoneIngot = new Item(redstoneIngotID).setCreativeTab(redTab).setUnlocalizedName("redIngot").func_111206_d("redstonekit:RedstoneIngot");
 		redstoneRafinedIngot = new ItemRafinedRedstoneIngot(redstoneRafinedIngotID).setCreativeTab(redTab).setUnlocalizedName("redstoneRafinedIngot").func_111206_d("redstonekit:RafinedRedIngot");
@@ -165,6 +167,7 @@ public class RedstoneKit
 		redSword = new ItemSword(redSwordID, RedstoneTool).setCreativeTab(redTab).setUnlocalizedName("redSword").func_111206_d("redstonekit:RedstoneSword");
 		
 		
+		utilityItem = new ItemUtilityItems(utilityItemsID).setCreativeTab(redTab).setUnlocalizedName("utilityItems");
 	}
 	
 	@EventHandler
@@ -180,6 +183,7 @@ public class RedstoneKit
 		GameRegistry.registerPickupHandler(new RedKitPickupHandler());
 		
 		GameRegistry.registerTileEntity(TileEntityMicrowave.class, microwaveTileEntityID);
+		GameRegistry.registerTileEntity(TileEntityCompressor.class, compressorTileEntityID);
 		NetworkRegistry.instance().registerGuiHandler(this, new GuiHandler());
 		GameRegistry.registerPlayerTracker(new RedstoneKitPlayerTracker());
 	}
@@ -203,6 +207,7 @@ public class RedstoneKit
 		GameRegistry.registerBlock(redstoneProtection, "redProtection");
 		GameRegistry.registerBlock(redstoneFenceIdle, "redFenceIdle");
 		GameRegistry.registerBlock(redstoneFenceActive, "redFenceActive");
+		GameRegistry.registerBlock(redstoneCompressor, "compressor");
 	}
 	
 	public void registerItems()
@@ -217,6 +222,7 @@ public class RedstoneKit
 		GameRegistry.registerItem(redSword, "redSword", "RedstoneKit");
 		GameRegistry.registerItem(redHoe, "redHoe", "RedstoneKit");
 		GameRegistry.registerItem(redstoneGrenade, redstoneGrenade.getUnlocalizedName(), "RedstoneKit");
+		GameRegistry.registerItem(utilityItem, "utilityItems", "RedstoneKit");
 	}
 	
 	public void registerCrafts()
@@ -237,7 +243,7 @@ public class RedstoneKit
 			" R ", " R ", " S ", Character.valueOf('R'), redstoneIngot, Character.valueOf('S'), Item.stick
 		});
 	   GameRegistry.addShapedRecipe(new ItemStack(redstoneProtection, 1), new Object []{
-			"III", "IRI", "III", Character.valueOf('R'), Item.diamond, Character.valueOf('I'), Block.blockRedstone
+			"III", "GEU", "III", Character.valueOf('E'), new ItemStack(utilityItem, 1, 2), Character.valueOf('U'), new ItemStack(utilityItem, 1, 0), Character.valueOf('G'), new ItemStack(utilityItem, 1, 4), Character.valueOf('I'), new ItemStack(utilityItem, 1, 3)
 		});
 	   GameRegistry.addShapedRecipe(new ItemStack(redstoneGlass, 8), new Object []{
 			"RRR", "RGR", "RRR", Character.valueOf('R'), Block.blockRedstone, Character.valueOf('G'), Block.glass
@@ -261,7 +267,7 @@ public class RedstoneKit
 			"BBB", "BFB", "BBB", Character.valueOf('B'), Block.blockRedstone, Character.valueOf('F'), Block.furnaceIdle
 		});
 	   GameRegistry.addShapedRecipe(new ItemStack(redstoneGun, 1), new Object[]{
-			"RR ", "RR ", "  S", Character.valueOf('R'), redstoneRafinedIngot, Character.valueOf('S'), Item.stick
+			"RC ", "CR ", "  S", Character.valueOf('R'), redstoneRafinedIngot, Character.valueOf('C'), new ItemStack(utilityItem, 1, 1), Character.valueOf('S'), redstoneStick
 		});
 	   GameRegistry.addShapedRecipe(new ItemStack(redstoneBullet, 5), new Object[]{
 			"RRR", Character.valueOf('R'), redstoneRafinedIngot
@@ -269,12 +275,36 @@ public class RedstoneKit
 	   GameRegistry.addShapedRecipe(new ItemStack(redstoneGrenade, 2), new Object[]{
 			"TRT", "RTR", "TRT", Character.valueOf('T'), Item.gunpowder, Character.valueOf('R'), redstoneIngot
 		});
-	   GameRegistry.addShapedRecipe(new ItemStack(redstoneFenceIdle, 1), new Object[]{
+	   GameRegistry.addShapedRecipe(new ItemStack(redstoneFenceIdle, 2), new Object[]{
 			"SSS", "SSS", Character.valueOf('S'), redstoneStick
 		});
 	   GameRegistry.addShapedRecipe(new ItemStack(redstoneStick, 1), new Object[]{
 			"R", "R", Character.valueOf('R'), redstoneIngot
 		});
+	   GameRegistry.addShapelessRecipe(new ItemStack(utilityItem, 1, 0), new Object[]{//Utility
+		   	Item.doorWood, redstoneMicrowaveIdle, Block.furnaceIdle, Item.bed, Block.chest, Block.chest
+	   });
+	   GameRegistry.addShapedRecipe(new ItemStack(utilityItem, 1, 1), new Object[]{
+		   	"RRR", "RRR", "RRR", Character.valueOf('R'), Block.blockRedstone
+	   });
+	   GameRegistry.addShapelessRecipe(new ItemStack(Block.blockRedstone, 9), new Object[]{
+		   	new ItemStack(utilityItem, 1, 1)
+	   });
+	   GameRegistry.addShapedRecipe(new ItemStack(utilityItem, 1, 2), new Object[]{
+		   	" B ", "BTB", " B ", Character.valueOf('B'), Item.bucketWater, Character.valueOf('T'), Block.tnt
+	   });
+	   GameRegistry.addShapedRecipe(new ItemStack(utilityItem, 1, 3), new Object[]{
+		   	"RRR", "RRR", "RRR", Character.valueOf('R'), new ItemStack(utilityItem, 1, 1)
+	   });
+	   GameRegistry.addShapelessRecipe(new ItemStack(utilityItem, 9, 1), new Object[]{
+		   	new ItemStack(utilityItem, 1, 3)
+	   });
+	   GameRegistry.addShapedRecipe(new ItemStack(utilityItem, 1, 4), new Object[]{
+		   	"GGG", "GGG", Character.valueOf('G'), redstoneGlass
+	   });
+	   GameRegistry.addShapelessRecipe(new ItemStack(redstoneGlass, 6), new Object[]{
+		   	new ItemStack(utilityItem, 1, 4)
+	   });
 	   
 	   GameRegistry.addSmelting(Item.redstone.itemID, new ItemStack(redstoneIngot), 2F);
 	   GameRegistry.addSmelting(redstoneIngot.itemID, new ItemStack(redstoneRafinedIngot), 2F);

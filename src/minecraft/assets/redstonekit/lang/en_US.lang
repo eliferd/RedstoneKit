@@ -13,6 +13,7 @@ tile.redMicrowaveActive.name=Do not use TMI
 tile.redPowerBlockIdle.name=Redstone Powered block
 tile.redPowerBlockActive.name=Do not use TMI
 tile.redDistributor.name=Redstone Distributor
+tile.compressor.name=Compressor
 
 #Container
 container.microwave=Microwave
@@ -33,6 +34,11 @@ item.redAxe.name=Redstone Axe
 item.redShovel.name=Redstone Shovel
 item.redHoe.name=Redstone Hoe
 item.redSword.name=Redstone Sword
+item.utilityItems.utilityItems.name=Utility Items
+item.utilityItems.compressedRedstonePlate.name=Compressed Redstone Plate
+item.utilityItems.explosionDetonator.name=Explosion Detonator
+item.utilityItems.superCompressedRedstonePlate.name=Super Compressed Redstone Plate
+item.utilityItems.compressedGlass.name=Compressed Glass
 
 #Achievements
 achievement.gettingRedstone=Getting Redstone
