@@ -265,6 +265,7 @@ public class TileEntityCompressor extends TileEntity implements ISidedInventory
         {
             ItemStack itemstack = CompressorRecipes.smelting().getSmeltingResult(this.compressorItemStacks[0]);
             if (itemstack == null) return false;
+            if (this.compressorItemStacks[0].stackSize < CompressorRecipes.smelting().getAmount(this.compressorItemStacks[0])) return false;
             if (this.compressorItemStacks[2] == null) return true;
             if (!this.compressorItemStacks[2].isItemEqual(itemstack)) return false;
             int result = compressorItemStacks[2].stackSize + itemstack.stackSize;

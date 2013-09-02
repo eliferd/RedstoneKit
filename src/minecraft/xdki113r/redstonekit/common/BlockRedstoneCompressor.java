@@ -101,7 +101,7 @@ public class BlockRedstoneCompressor extends BlockContainer
     {
         if (!keepInventory)
         {
-            TileEntityMicrowave tileentityfurnace = (TileEntityMicrowave)par1World.getBlockTileEntity(par2, par3, par4);
+            TileEntityCompressor tileentityfurnace = (TileEntityCompressor)par1World.getBlockTileEntity(par2, par3, par4);
 
             if (tileentityfurnace != null)
             {

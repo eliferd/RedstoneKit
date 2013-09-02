@@ -45,10 +45,10 @@ public class GuiCompressor extends GuiContainer
         if (this.compressorInventory.isBurning())
         {
             i1 = this.compressorInventory.getBurnTimeRemainingScaled(12);
-            this.drawTexturedModalRect(k + 56, l + 36 + 12 - i1, 176, 12 - i1, 14, i1 + 2);
+            this.drawTexturedModalRect(k + 56, l + 36 + 12 - i1, 176, 12 - i1, 15, i1 + 2);
         }
 
         i1 = this.compressorInventory.getCookProgressScaled(24);
-        this.drawTexturedModalRect(k + 79, l + 34, 176, 14, i1 + 1, 16);
+        this.drawTexturedModalRect(k + 79, l + 34, 176, 14, i1 + 1, 17);
     }
 }

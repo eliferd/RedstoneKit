@@ -14,7 +14,7 @@ public class CompressorRecipes
 
     /** The list of smelting results. */
     private Map smeltingList = new HashMap();
-    private Map amountList = new HashMap();
+    private Map<Integer, Integer> amountList = new HashMap<Integer, Integer>();
     private HashMap<List<Integer>, ItemStack> metaSmeltingList = new HashMap<List<Integer>, ItemStack>();
     private HashMap<List<Integer>, Integer> metaAmount = new HashMap<List<Integer>, Integer>();
 
@@ -29,7 +29,8 @@ public class CompressorRecipes
     private CompressorRecipes()
     {
         this.addSmelting(Block.blockRedstone.blockID, new ItemStack(RedstoneKit.utilityItem, 1, 1), 9);
-        
+        this.addSmelting(RedstoneKit.redstoneGlass.blockID, new ItemStack(RedstoneKit.utilityItem, 1, 4), 6);
+        this.addSmelting(RedstoneKit.utilityItem.itemID, 1, new ItemStack(RedstoneKit.utilityItem, 1, 3), 9);
     }
 
     /**
@@ -38,7 +39,7 @@ public class CompressorRecipes
     public void addSmelting(int par1, ItemStack par2ItemStack, int par3)
     {
         this.smeltingList.put(Integer.valueOf(par1), par2ItemStack);
-        this.amountList.put(Integer.valueOf(par2ItemStack.itemID), Integer.valueOf(par3));
+        this.amountList.put(par1, par3);
     }
 
     /**
@@ -57,9 +58,9 @@ public class CompressorRecipes
     }
 
     @Deprecated //In favor of ItemStack sensitive version
-    public float getAmount(int par1)
+    public int getAmount(int par1)
     {
-        return this.amountList.containsKey(Integer.valueOf(par1)) ? ((Float)this.amountList.get(Integer.valueOf(par1))).floatValue() : 0.0F;
+        return this.amountList.containsKey(par1) ? ((Integer)this.amountList.get(par1)).intValue() : 0;
     }
 
     /**
@@ -68,7 +69,7 @@ public class CompressorRecipes
     public void addSmelting(int itemID, int metadata, ItemStack itemstack, int experience)
     {
         metaSmeltingList.put(Arrays.asList(itemID, metadata), itemstack);
-        metaAmount.put(Arrays.asList(itemstack.itemID, itemstack.getItemDamage()), experience);
+        metaAmount.put(Arrays.asList(itemID, metadata), experience);
     }
 
     /**
@@ -90,23 +91,20 @@ public class CompressorRecipes
         return (ItemStack)smeltingList.get(Integer.valueOf(item.itemID));
     }
 
-    /**
-     * Grabs the amount of base experience for this item to give when pulled from the furnace slot.
-     */
-    public float getAmount(ItemStack item)
+    public int getAmount(ItemStack item)
     {
-        if (item == null || item.getItem() == null)
+    	if (item == null || item.getItem() == null)
         {
             return 0;
         }
-        float ret = item.getItem().getSmeltingExperience(item);
+        int ret = -1;
         if (ret < 0 && metaAmount.containsKey(Arrays.asList(item.itemID, item.getItemDamage())))
         {
-            ret = metaAmount.get(Arrays.asList(item.itemID, item.getItemDamage()));
+            ret = metaAmount.get(Arrays.asList(item.itemID, item.getItemDamage())).intValue();
         }
         if (ret < 0 && amountList.containsKey(item.itemID))
         {
-            ret = ((Float)amountList.get(item.itemID)).intValue();
+            ret = (amountList.get(item.itemID)).intValue();
         }
         return (ret < 0 ? 0 : ret);
     }

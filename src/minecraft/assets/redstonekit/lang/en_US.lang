@@ -17,6 +17,7 @@ tile.compressor.name=Compressor
 
 #Container
 container.microwave=Microwave
+container.compressor=Compressor
 
 #Item
 item.redIngot.name=Redstone Ingot

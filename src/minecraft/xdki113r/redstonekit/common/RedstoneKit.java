@@ -126,6 +126,7 @@ public class RedstoneKit
 			redstoneMicrowaveActiveID = cfg.getBlock("Redstone MicrowaveActive Block ID", 1206).getInt();
 			redstonePoweredBlockIdleID = cfg.getBlock("Redstone PoweredBlockIdle Block ID", 1207).getInt();
 			redstonePoweredBlockActiveID = cfg.getBlock("Redstone PoweredBlockActive Block ID", 1208).getInt();
+			redstoneCompressorID = cfg.getBlock("Redstone Compressor Block ID", 1209).getInt();
 		} finally
 		{
 			if(cfg.hasChanged())
@@ -284,23 +285,14 @@ public class RedstoneKit
 	   GameRegistry.addShapelessRecipe(new ItemStack(utilityItem, 1, 0), new Object[]{//Utility
 		   	Item.doorWood, redstoneMicrowaveIdle, Block.furnaceIdle, Item.bed, Block.chest, Block.chest
 	   });
-	   GameRegistry.addShapedRecipe(new ItemStack(utilityItem, 1, 1), new Object[]{
-		   	"RRR", "RRR", "RRR", Character.valueOf('R'), Block.blockRedstone
-	   });
 	   GameRegistry.addShapelessRecipe(new ItemStack(Block.blockRedstone, 9), new Object[]{
 		   	new ItemStack(utilityItem, 1, 1)
 	   });
 	   GameRegistry.addShapedRecipe(new ItemStack(utilityItem, 1, 2), new Object[]{
 		   	" B ", "BTB", " B ", Character.valueOf('B'), Item.bucketWater, Character.valueOf('T'), Block.tnt
 	   });
-	   GameRegistry.addShapedRecipe(new ItemStack(utilityItem, 1, 3), new Object[]{
-		   	"RRR", "RRR", "RRR", Character.valueOf('R'), new ItemStack(utilityItem, 1, 1)
-	   });
 	   GameRegistry.addShapelessRecipe(new ItemStack(utilityItem, 9, 1), new Object[]{
 		   	new ItemStack(utilityItem, 1, 3)
-	   });
-	   GameRegistry.addShapedRecipe(new ItemStack(utilityItem, 1, 4), new Object[]{
-		   	"GGG", "GGG", Character.valueOf('G'), redstoneGlass
 	   });
 	   GameRegistry.addShapelessRecipe(new ItemStack(redstoneGlass, 6), new Object[]{
 		   	new ItemStack(utilityItem, 1, 4)
