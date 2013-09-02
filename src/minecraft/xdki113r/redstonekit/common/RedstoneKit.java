@@ -34,7 +34,9 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.ReflectionHelper;
+import cpw.mods.fml.relauncher.Side;
 
 @Mod(modid = ModUtils.mod_id, name = ModUtils.mod_name, version = ModUtils.mod_version)
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
@@ -83,6 +85,8 @@ public class RedstoneKit
 
 	public static CreativeTabs redTab = new RedstoneKitCreativeTabs("redKitTab");
 
+	public static boolean redstoneHelmetEquipped, redstoneChestplateEquipped, redstoneLeggingsEquipped, redstoneBootsEquipped;
+	
 	@EventHandler
 	public void preLoad(FMLPreInitializationEvent event)
 	{
@@ -196,6 +200,7 @@ public class RedstoneKit
 		proxy.addMobEntity(EntityRedstoneBoss.class, "RedstoneBoss", 501, this, 40, 1, true, 0, 0, 1, 1, 1, EnumCreatureType.monster);
 		proxy.addNonMobEntity(EntityRedGrenade.class, "RedstoneGrenade", 502, this, 40, 1, true);
 		proxy.render();
+		TickRegistry.registerTickHandler(new TickCommonHandler(), Side.SERVER);
 	}
 	
 	public void registerBlocks()

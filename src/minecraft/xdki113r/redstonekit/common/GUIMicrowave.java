@@ -9,12 +9,12 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
-public class GuiMicrowave extends GuiContainer
+public class GUIMicrowave extends GuiContainer
 {
     private static final ResourceLocation field_110410_t = new ResourceLocation("textures/gui/container/furnace.png");
     private TileEntityMicrowave furnaceInventory;
 
-    public GuiMicrowave(InventoryPlayer par1InventoryPlayer, TileEntityMicrowave par2TileEntityFurnace)
+    public GUIMicrowave(InventoryPlayer par1InventoryPlayer, TileEntityMicrowave par2TileEntityFurnace)
     {
         super(new ContainerRedstoneMicrowave(par1InventoryPlayer, par2TileEntityFurnace));
         this.furnaceInventory = par2TileEntityFurnace;

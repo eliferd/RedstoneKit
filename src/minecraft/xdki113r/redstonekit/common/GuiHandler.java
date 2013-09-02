@@ -30,7 +30,7 @@ public class GuiHandler implements IGuiHandler
 		
 		if(tileentity instanceof TileEntityMicrowave)
 		{
-			return new GuiMicrowave(player.inventory, (TileEntityMicrowave) tileentity);
+			return new GUIMicrowave(player.inventory, (TileEntityMicrowave) tileentity);
 		}
 		else if(tileentity instanceof TileEntityCompressor)
 		{
