@@ -293,7 +293,7 @@ public class RedstoneKit
 	   GameRegistry.addShapedRecipe(new ItemStack(utilityItem, 1, 2), new Object[]{
 		   	" B ", "BTB", " B ", Character.valueOf('B'), Item.bucketWater, Character.valueOf('T'), Block.tnt
 	   });
-	   GameRegistry.addShapelessRecipe(new ItemStack(utilityItem, 9, 1), new Object[]{//336 Redstone blocks à placer
+	   GameRegistry.addShapelessRecipe(new ItemStack(utilityItem, 9, 1), new Object[]{
 		   	new ItemStack(utilityItem, 1, 3)
 	   });
 	   GameRegistry.addShapelessRecipe(new ItemStack(redstoneGlass, 6), new Object[]{
