@@ -67,8 +67,8 @@ public class RedstoneKit
 			redstoneMicrowaveIdleID, redstoneMicrowaveActiveID,
 			redstonePoweredBlockIdleID, redstonePoweredBlockActiveID, redstoneCompressorID;
 	
-	static EnumArmorMaterial RedstoneArmor = EnumHelper.addArmorMaterial("Redstone", 35, new int[]{ 4, 10, 8, 5 }, 30);
-	static EnumToolMaterial RedstoneTool = EnumHelper.addToolMaterial("Redstone", 150, 2634, 13F, 4, 4);
+	static EnumArmorMaterial RedstoneArmor = EnumHelper.addArmorMaterial("Redstone", 35, new int[]{ 4, 10, 8, 5 }, 100);
+	static EnumToolMaterial RedstoneTool = EnumHelper.addToolMaterial("Redstone", 25, 168, 13F, 1, 5);
 	
 	public static Achievement gettingRedstone, craftingMicrowave, craftingRedGlass, craftingRedGrenade, craftingRedPick, smeltingRedstone;
 	
@@ -96,13 +96,11 @@ public class RedstoneKit
 		{
 			cfg.load();
 
-			Property redstoneBulletProp = cfg.get(cfg.CATEGORY_GENERAL, "Redstone Bullet Entity ID", 50);
-			redstoneBulletProp.comment = "Entity ID for compatibility purposes";
-			redstoneBulletEntityID = redstoneBulletProp.getInt();
+			redstoneBulletEntityID = cfg.get(cfg.CATEGORY_GENERAL, "Redstone Bullet Entity ID", 50, "Entity ID for compatibility purposes. Default=50").getInt();
 			
-			Property redstoneBulletDamageProp = cfg.get(cfg.CATEGORY_GENERAL, "Redstone Bullet Damage", 5);
-			redstoneBulletDamageProp.comment = "Damage of the bullet, 1 = 0.5 hearts. Default=5";
-			redstoneBulletDamage = redstoneBulletDamageProp.getInt();
+			redstoneBulletDamage = cfg.get(cfg.CATEGORY_GENERAL, "Redstone Bullet Damage", 5, "Damage of the bullet, 1 = 0.5 hearts. Default=5").getInt();
+			
+			grenadeExplode = cfg.get(cfg.CATEGORY_GENERAL, "Grenade Explosion Drops", true, "If the redstone grenade should drop. \"true\" will make them drop, false won't. Default=true").getBoolean(true);
 			
 			redstoneGunID = cfg.getItem("Redstone Shotgun Item ID", 12500).getInt();
 			redstoneIngotID = cfg.getItem("Redstone Ingot Item ID", 12501).getInt();
@@ -170,7 +168,6 @@ public class RedstoneKit
 		redShovel = new ItemSpade(redShovelID, RedstoneTool).setCreativeTab(redTab).setUnlocalizedName("redShovel").func_111206_d("redstonekit:RedstoneShovel");
 		redHoe = new ItemHoe(redHoeID, RedstoneTool).setCreativeTab(redTab).setUnlocalizedName("redHoe").func_111206_d("redstonekit:RedstoneHoe");
 		redSword = new ItemSword(redSwordID, RedstoneTool).setCreativeTab(redTab).setUnlocalizedName("redSword").func_111206_d("redstonekit:RedstoneSword");
-		
 		
 		utilityItem = new ItemUtilityItems(utilityItemsID).setCreativeTab(redTab).setUnlocalizedName("utilityItems");
 	}
@@ -249,7 +246,7 @@ public class RedstoneKit
 			" R ", " R ", " S ", Character.valueOf('R'), redstoneIngot, Character.valueOf('S'), Item.stick
 		});
 	   GameRegistry.addShapedRecipe(new ItemStack(redstoneProtection, 1), new Object []{
-			"III", "GEU", "III", Character.valueOf('E'), new ItemStack(utilityItem, 1, 2), Character.valueOf('U'), new ItemStack(utilityItem, 1, 0), Character.valueOf('G'), new ItemStack(utilityItem, 1, 4), Character.valueOf('I'), new ItemStack(utilityItem, 1, 3)
+			"IRI", "GEU", "IRI", Character.valueOf('E'), new ItemStack(utilityItem, 1, 2), Character.valueOf('U'), new ItemStack(utilityItem, 1, 0), Character.valueOf('G'), new ItemStack(utilityItem, 1, 4), Character.valueOf('I'), new ItemStack(utilityItem, 1, 3), Character.valueOf('R'), Block.blockRedstone
 		});
 	   GameRegistry.addShapedRecipe(new ItemStack(redstoneGlass, 8), new Object []{
 			"RRR", "RGR", "RRR", Character.valueOf('R'), Block.blockRedstone, Character.valueOf('G'), Block.glass
@@ -288,7 +285,7 @@ public class RedstoneKit
 			"R", "R", Character.valueOf('R'), redstoneIngot
 		});
 	   GameRegistry.addShapelessRecipe(new ItemStack(utilityItem, 1, 0), new Object[]{//Utility
-		   	Item.doorWood, redstoneMicrowaveIdle, Block.furnaceIdle, Item.bed, Block.chest, Block.chest
+		   	Item.doorWood, redstoneMicrowaveIdle, Block.furnaceIdle, Item.bed, Block.chest, Block.chest, Block.workbench
 	   });
 	   GameRegistry.addShapelessRecipe(new ItemStack(Block.blockRedstone, 9), new Object[]{
 		   	new ItemStack(utilityItem, 1, 1)
@@ -296,7 +293,7 @@ public class RedstoneKit
 	   GameRegistry.addShapedRecipe(new ItemStack(utilityItem, 1, 2), new Object[]{
 		   	" B ", "BTB", " B ", Character.valueOf('B'), Item.bucketWater, Character.valueOf('T'), Block.tnt
 	   });
-	   GameRegistry.addShapelessRecipe(new ItemStack(utilityItem, 9, 1), new Object[]{
+	   GameRegistry.addShapelessRecipe(new ItemStack(utilityItem, 9, 1), new Object[]{//336 Redstone blocks à placer
 		   	new ItemStack(utilityItem, 1, 3)
 	   });
 	   GameRegistry.addShapelessRecipe(new ItemStack(redstoneGlass, 6), new Object[]{

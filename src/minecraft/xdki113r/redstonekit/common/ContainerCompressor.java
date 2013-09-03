@@ -21,7 +21,7 @@ public class ContainerCompressor extends Container
         this.compressor = par2TileEntityCompressor;
         this.addSlotToContainer(new Slot(par2TileEntityCompressor, 0, 56, 17));
         this.addSlotToContainer(new Slot(par2TileEntityCompressor, 1, 56, 53));
-        this.addSlotToContainer(new SlotMicrowave(par1InventoryPlayer.player, par2TileEntityCompressor, 2, 116, 35));
+        this.addSlotToContainer(new SlotCompressor(par1InventoryPlayer.player, par2TileEntityCompressor, 2, 116, 35));
         int i;
 
         for (i = 0; i < 3; ++i)
@@ -133,7 +133,7 @@ public class ContainerCompressor extends Container
                         return null;
                     }
                 }
-                else if (TileEntityMicrowave.isItemFuel(itemstack1))
+                else if (TileEntityCompressor.isItemFuel(itemstack1))
                 {
                     if (!this.mergeItemStack(itemstack1, 1, 2, false))
                     {

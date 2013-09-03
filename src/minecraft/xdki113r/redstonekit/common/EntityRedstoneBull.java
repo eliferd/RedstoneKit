@@ -224,7 +224,7 @@ public class EntityRedstoneBull extends Entity {
             movingobjectposition = new MovingObjectPosition(entity);
         }
         
-        if (movingobjectposition != null)
+        if (movingobjectposition != null && !worldObj.isRemote)
         {
             int k = worldObj.getBlockId(movingobjectposition.blockX, movingobjectposition.blockY, movingobjectposition.blockZ);
 
@@ -232,7 +232,7 @@ public class EntityRedstoneBull extends Entity {
             {
                 if (movingobjectposition.entityHit != null)
                 {
-                    movingobjectposition.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, owner), 10);
+                    movingobjectposition.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, owner), RedstoneKit.getBulletDamage());
                 } 
                 else 
                 {
@@ -269,8 +269,8 @@ public class EntityRedstoneBull extends Entity {
                         FMLClientHandler.instance().getClient().effectRenderer.addBlockDestroyEffects(xTile, yTile, zTile, block.blockID & 0xff, Block.glass.blockID >> 8 & 0xff);
                         FMLClientHandler.instance().getClient().effectRenderer.addBlockDestroyEffects(xTile, yTile, zTile, block.blockID & 0xff, RedstoneKit.redstoneGlass.blockID >> 8 & 0xff);
                         FMLClientHandler.instance().getClient().sndManager.playSound(block.stepSound.getBreakSound(), (float)xTile + 0.5F, (float)yTile + 0.5F, (float)zTile + 0.5F, (block.stepSound.getVolume() + 1.0F) / 2.0F, block.stepSound.getPitch() * 0.8F);
-                        worldObj.setBlock(xTile, yTile, zTile, 0);
                         block.onBlockDestroyedByPlayer(worldObj, xTile, yTile, zTile, worldObj.getBlockMetadata(xTile, yTile, zTile));
+                        worldObj.setBlockToAir(xTile, yTile, zTile);
                     }
                 }
                 setEntityDead();

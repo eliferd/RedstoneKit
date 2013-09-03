@@ -163,18 +163,13 @@ public class EntityRedGrenade extends EntityItem
     
     protected void explode()
     {
-        if (!exploded)
+        if (!exploded && !worldObj.isRemote)
         {
             exploded = true;
             Explosion explosion = new Explosion(worldObj, null, posX, (float)posY, (float)posZ, 3F);
             explosion.doExplosionA();
             worldObj.playSoundEffect(posX, posY, posZ, "random.explode", 4F, (1.0F + (worldObj.rand.nextFloat() - worldObj.rand.nextFloat()) * 0.2F) * 0.7F);
-            if(RedstoneKit.grenadeExplode)
-            {
-                explosion.doExplosionB(true);
-            }else {
-            	explosion.doExplosionB(false);
-            }
+            explosion.doExplosionB(RedstoneKit.grenadeExplode);
             for (int i = 0; i < 32; i++)
             {
                 worldObj.spawnParticle("explode", posX, posY, posZ, worldObj.rand.nextDouble() - 0.5D, worldObj.rand.nextDouble() - 0.5D, worldObj.rand.nextDouble() - 0.5D);

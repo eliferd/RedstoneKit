@@ -36,9 +36,9 @@ item.redShovel.name=Redstone Shovel
 item.redHoe.name=Redstone Hoe
 item.redSword.name=Redstone Sword
 item.utilityItems.utilityItems.name=Utility Items
-item.utilityItems.compressedRedstonePlate.name=Compressed Redstone Plate
+item.utilityItems.compressedRedstonePlate.name=Redstone Plate
 item.utilityItems.explosionDetonator.name=Explosion Detonator
-item.utilityItems.superCompressedRedstonePlate.name=Super Compressed Redstone Plate
+item.utilityItems.superCompressedRedstonePlate.name=Mega Redstone Plate
 item.utilityItems.compressedGlass.name=Compressed Glass
 
 #Achievements
