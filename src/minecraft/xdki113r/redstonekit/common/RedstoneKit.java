@@ -299,6 +299,9 @@ public class RedstoneKit
 	   GameRegistry.addShapelessRecipe(new ItemStack(redstoneGlass, 6), new Object[]{
 		   	new ItemStack(utilityItem, 1, 4)
 	   });
+	   GameRegistry.addShapedRecipe(new ItemStack(redstoneCompressor, 1), new Object[]{
+		   "RIR", "O O", "RIR", Character.valueOf('R'), Block.blockRedstone, Character.valueOf('O'), Block.obsidian, Character.valueOf('I'), Item.ingotIron
+	   });
 	   
 	   GameRegistry.addSmelting(Item.redstone.itemID, new ItemStack(redstoneIngot), 2F);
 	   GameRegistry.addSmelting(redstoneIngot.itemID, new ItemStack(redstoneRafinedIngot), 2F);
